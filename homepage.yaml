@@ -1,0 +1,301 @@
+---
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: "AYO Homepage"
+host: "172.24.252.167:10010"
+basePath: "/ayo"
+schemes:
+- "http"
+- "https"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /homepage:
+    post:
+      tags:
+      - "homepage"
+      summary: "get homepage based on specified geo"
+      description: ""
+      operationId: "homepage"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "homepage geo that might contain lat-lon, geoId, landmarkId.\
+          \ if null given, default will be Jakarta"
+        required: true
+        schema:
+          $ref: "#/definitions/HomepageRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/HomepageResponse"
+        400:
+          description: "Invalid geo"
+      x-swagger-router-controller: "Homepage"
+definitions:
+  GeoDisplay:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "2301"
+      name:
+        type: "string"
+        example: "Jakarta"
+      locationType:
+        type: "string"
+        example: "GEO"
+        description: "Type of location"
+        enum:
+        - "GEO"
+        - "LANDMARK"
+    example:
+      name: "Jakarta"
+      locationType: "GEO"
+      id: "2301"
+  RestaurantTile:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "123"
+      imageUrl:
+        type: "string"
+        example: "https://picsum.photos/200/300"
+      name:
+        type: "string"
+        example: "Bureau Cafe"
+      locationLabel:
+        type: "string"
+        example: "Central Park, Slipi"
+      cuisineType:
+        type: "string"
+        example: "Western"
+      ratingDisplay:
+        $ref: "#/definitions/RatingDisplay"
+    example:
+      ratingDisplay:
+        rating: 4.6
+        ratingColor: "GREEN"
+      imageUrl: "https://picsum.photos/200/300"
+      name: "Bureau Cafe"
+      locationLabel: "Central Park, Slipi"
+      id: "123"
+      cuisineType: "Western"
+  RatingDisplay:
+    type: "object"
+    properties:
+      rating:
+        type: "number"
+        example: 4.6
+      ratingColor:
+        type: "string"
+        example: "GREEN"
+        description: "color translation of rating"
+        enum:
+        - "GREEN"
+        - "ORANGE"
+        - "RED"
+    example:
+      rating: 4.6
+      ratingColor: "GREEN"
+  Banner:
+    type: "object"
+    properties:
+      imageUrl:
+        type: "string"
+        example: "https://picsum.photos/200/300"
+      deeplink:
+        type: "string"
+        example: "http://heyayo.id"
+    example:
+      imageUrl: "https://picsum.photos/200/300"
+      deeplink: "http://heyayo.id"
+  NearbyRestaurantDisplay:
+    type: "object"
+    properties:
+      imageUrl:
+        type: "string"
+        example: "https://picsum.photos/200/300"
+      label:
+        type: "string"
+        example: "See restaurant around me"
+    example:
+      imageUrl: "https://picsum.photos/200/300"
+      label: "See restaurant around me"
+  DishTile:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "PIZZA"
+      imageUrl:
+        type: "string"
+        example: "https://picsum.photos/200/300"
+    example:
+      imageUrl: "https://picsum.photos/200/300"
+      id: "PIZZA"
+  DishDisplay:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+        example: "Popular Dishes in Jakarta"
+      groupType:
+        type: "string"
+        example: "DISH"
+        enum:
+        - "RESTAURANT"
+        - "DISH"
+        - "CUISINE"
+      dishes:
+        type: "array"
+        xml:
+          name: "dish"
+          wrapped: true
+        items:
+          $ref: "#/definitions/DishTile"
+    example:
+      groupType: "DISH"
+      dishes:
+      - imageUrl: "https://picsum.photos/200/300"
+        id: "PIZZA"
+      - imageUrl: "https://picsum.photos/200/300"
+        id: "PIZZA"
+      title: "Popular Dishes in Jakarta"
+  RestaurantDisplay:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+        example: "Restoran di Jakarta"
+      groupType:
+        type: "string"
+        example: "RESTAURANT"
+        enum:
+        - "RESTAURANT"
+        - "DISH"
+        - "CUISINE"
+      restaurants:
+        type: "array"
+        xml:
+          name: "restaurant"
+          wrapped: true
+        items:
+          $ref: "#/definitions/RestaurantTile"
+    example:
+      groupType: "RESTAURANT"
+      restaurants:
+      - ratingDisplay:
+          rating: 4.6
+          ratingColor: "GREEN"
+        imageUrl: "https://picsum.photos/200/300"
+        name: "Bureau Cafe"
+        locationLabel: "Central Park, Slipi"
+        id: "123"
+        cuisineType: "Western"
+      - ratingDisplay:
+          rating: 4.6
+          ratingColor: "GREEN"
+        imageUrl: "https://picsum.photos/200/300"
+        name: "Bureau Cafe"
+        locationLabel: "Central Park, Slipi"
+        id: "123"
+        cuisineType: "Western"
+      title: "Restoran di Jakarta"
+  HomepageResponse:
+    type: "object"
+    properties:
+      geoDisplay:
+        $ref: "#/definitions/GeoDisplay"
+      banners:
+        type: "array"
+        xml:
+          name: "banner"
+          wrapped: true
+        items:
+          $ref: "#/definitions/Banner"
+      nearbyRestaurantDisplay:
+        $ref: "#/definitions/NearbyRestaurantDisplay"
+      restaurantDisplay:
+        $ref: "#/definitions/RestaurantDisplay"
+      dishDisplay:
+        $ref: "#/definitions/DishDisplay"
+    example:
+      dishDisplay:
+        groupType: "DISH"
+        dishes:
+        - imageUrl: "https://picsum.photos/200/300"
+          id: "PIZZA"
+        - imageUrl: "https://picsum.photos/200/300"
+          id: "PIZZA"
+        title: "Popular Dishes in Jakarta"
+      restaurantDisplay:
+        groupType: "RESTAURANT"
+        restaurants:
+        - ratingDisplay:
+            rating: 4.6
+            ratingColor: "GREEN"
+          imageUrl: "https://picsum.photos/200/300"
+          name: "Bureau Cafe"
+          locationLabel: "Central Park, Slipi"
+          id: "123"
+          cuisineType: "Western"
+        - ratingDisplay:
+            rating: 4.6
+            ratingColor: "GREEN"
+          imageUrl: "https://picsum.photos/200/300"
+          name: "Bureau Cafe"
+          locationLabel: "Central Park, Slipi"
+          id: "123"
+          cuisineType: "Western"
+        title: "Restoran di Jakarta"
+      geoDisplay:
+        name: "Jakarta"
+        locationType: "GEO"
+        id: "2301"
+      banners:
+      - imageUrl: "https://picsum.photos/200/300"
+        deeplink: "http://heyayo.id"
+      - imageUrl: "https://picsum.photos/200/300"
+        deeplink: "http://heyayo.id"
+      nearbyRestaurantDisplay:
+        imageUrl: "https://picsum.photos/200/300"
+        label: "See restaurant around me"
+  GeoLocation:
+    type: "object"
+    properties:
+      lat:
+        type: "number"
+        example: 23.45
+      lon:
+        type: "number"
+        example: 68.45
+    example:
+      lon: 68.45
+      lat: 23.45
+  HomepageRequest:
+    type: "object"
+    properties:
+      geoId:
+        type: "integer"
+        example: 123
+      landmarkId:
+        type: "integer"
+        example: 123
+      geoLocation:
+        $ref: "#/definitions/GeoLocation"
+    example:
+      landmarkId: 123
+      geoLocation:
+        lon: 68.45
+        lat: 23.45
+      geoId: 123
