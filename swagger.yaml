@@ -1,0 +1,1196 @@
+---
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: "AYO API Documentation"
+host: "172.24.252.167:10010"
+basePath: "/ayo"
+schemes:
+- "http"
+- "https"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /homepage:
+    post:
+      tags:
+      - "homepage"
+      summary: "get homepage based on specified geo"
+      description: ""
+      operationId: "homepage"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "homepage geo that might contain lat-lon, geoId, landmarkId.\
+          \ if null given, default will be Jakarta"
+        required: true
+        schema:
+          $ref: "#/definitions/HomepageRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/HomepageResponse"
+        400:
+          description: "Invalid geo"
+      x-swagger-router-controller: "Homepage"
+  /poi:
+    post:
+      tags:
+      - "poi"
+      summary: "get poi detail based on poi id"
+      description: ""
+      operationId: "poi"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/POIRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/POIResponse"
+        400:
+          description: "Invalide POI id"
+      x-swagger-router-controller: "Poi"
+definitions:
+  GeoDisplay:
+    type: "object"
+    required:
+    - "id"
+    - "locationType"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "Jakarta"
+      locationType:
+        type: "string"
+        example: "GEO"
+        description: "Type of location"
+        enum:
+        - "GEO"
+        - "LANDMARK"
+    example:
+      name: "Jakarta"
+      locationType: "GEO"
+      id: 0
+  RestaurantTile:
+    type: "object"
+    required:
+    - "id"
+    - "imageUrl"
+    - "locationLabel"
+    - "name"
+    properties:
+      id:
+        type: "string"
+        example: "123"
+      imageUrl:
+        type: "string"
+        example: "http://tny.im/jA-"
+      name:
+        type: "string"
+        example: "Bureau Cafe"
+      locationLabel:
+        type: "string"
+        example: "Central Park, Slipi"
+      cuisineType:
+        type: "string"
+        example: "Western"
+      ratingDisplay:
+        $ref: "#/definitions/RatingDisplay"
+    example:
+      ratingDisplay:
+        rating: 4.5999999999999996447286321199499070644378662109375
+        ratingColor:
+          r: 153
+          b: 152
+          g: 37
+      imageUrl: "http://tny.im/jA-"
+      name: "Bureau Cafe"
+      locationLabel: "Central Park, Slipi"
+      id: "123"
+      cuisineType: "Western"
+  RatingDisplay:
+    type: "object"
+    required:
+    - "rating"
+    - "ratingColor"
+    properties:
+      rating:
+        type: "number"
+        example: 4.5999999999999996447286321199499070644378662109375
+      ratingColor:
+        $ref: "#/definitions/Color"
+    example:
+      rating: 4.5999999999999996447286321199499070644378662109375
+      ratingColor:
+        r: 153
+        b: 152
+        g: 37
+  Banner:
+    type: "object"
+    required:
+    - "deeplink"
+    - "imageUrl"
+    properties:
+      imageUrl:
+        type: "string"
+        example: "http://tny.im/jA-"
+      deeplink:
+        type: "string"
+        example: "http://heyayo.id"
+    example:
+      imageUrl: "http://tny.im/jA-"
+      deeplink: "http://heyayo.id"
+  NearbyRestaurantDisplay:
+    type: "object"
+    required:
+    - "imageUrl"
+    - "label"
+    properties:
+      imageUrl:
+        type: "string"
+        example: "http://tny.im/jA-"
+      label:
+        type: "string"
+        example: "See restaurant around me"
+    example:
+      imageUrl: "http://tny.im/jA-"
+      label: "See restaurant around me"
+  DishTile:
+    type: "object"
+    required:
+    - "id"
+    - "imageUrl"
+    properties:
+      id:
+        type: "string"
+        example: "PIZZA"
+      imageUrl:
+        type: "string"
+        example: "http://tny.im/jA-"
+    example:
+      imageUrl: "http://tny.im/jA-"
+      id: "PIZZA"
+  Section:
+    type: "object"
+    required:
+    - "dishes"
+    - "groupType"
+    - "restaurants"
+    - "title"
+    properties:
+      title:
+        type: "string"
+        example: "Restoran di Jakarta"
+      groupType:
+        type: "string"
+        example: "RESTAURANT"
+        enum:
+        - "RESTAURANT"
+        - "DISH"
+        - "CUISINE"
+      restaurants:
+        type: "array"
+        items:
+          $ref: "#/definitions/RestaurantTile"
+      dishes:
+        type: "array"
+        items:
+          $ref: "#/definitions/DishTile"
+    example:
+      groupType: "RESTAURANT"
+      restaurants:
+      - ratingDisplay:
+          rating: 4.5999999999999996447286321199499070644378662109375
+          ratingColor:
+            r: 153
+            b: 152
+            g: 37
+        imageUrl: "http://tny.im/jA-"
+        name: "Bureau Cafe"
+        locationLabel: "Central Park, Slipi"
+        id: "123"
+        cuisineType: "Western"
+      - ratingDisplay:
+          rating: 4.5999999999999996447286321199499070644378662109375
+          ratingColor:
+            r: 153
+            b: 152
+            g: 37
+        imageUrl: "http://tny.im/jA-"
+        name: "Bureau Cafe"
+        locationLabel: "Central Park, Slipi"
+        id: "123"
+        cuisineType: "Western"
+      dishes:
+      - imageUrl: "http://tny.im/jA-"
+        id: "PIZZA"
+      - imageUrl: "http://tny.im/jA-"
+        id: "PIZZA"
+      title: "Restoran di Jakarta"
+  HomepageDataResponse:
+    type: "object"
+    required:
+    - "banners"
+    - "geoDisplay"
+    - "sections"
+    properties:
+      geoDisplay:
+        $ref: "#/definitions/GeoDisplay"
+      banners:
+        type: "array"
+        items:
+          $ref: "#/definitions/Banner"
+      nearbyRestaurantDisplay:
+        $ref: "#/definitions/NearbyRestaurantDisplay"
+      sections:
+        type: "array"
+        items:
+          $ref: "#/definitions/Section"
+    example:
+      geoDisplay:
+        name: "Jakarta"
+        locationType: "GEO"
+        id: 0
+      banners:
+      - imageUrl: "http://tny.im/jA-"
+        deeplink: "http://heyayo.id"
+      - imageUrl: "http://tny.im/jA-"
+        deeplink: "http://heyayo.id"
+      nearbyRestaurantDisplay:
+        imageUrl: "http://tny.im/jA-"
+        label: "See restaurant around me"
+      sections:
+      - groupType: "RESTAURANT"
+        restaurants:
+        - ratingDisplay:
+            rating: 4.5999999999999996447286321199499070644378662109375
+            ratingColor:
+              r: 153
+              b: 152
+              g: 37
+          imageUrl: "http://tny.im/jA-"
+          name: "Bureau Cafe"
+          locationLabel: "Central Park, Slipi"
+          id: "123"
+          cuisineType: "Western"
+        - ratingDisplay:
+            rating: 4.5999999999999996447286321199499070644378662109375
+            ratingColor:
+              r: 153
+              b: 152
+              g: 37
+          imageUrl: "http://tny.im/jA-"
+          name: "Bureau Cafe"
+          locationLabel: "Central Park, Slipi"
+          id: "123"
+          cuisineType: "Western"
+        dishes:
+        - imageUrl: "http://tny.im/jA-"
+          id: "PIZZA"
+        - imageUrl: "http://tny.im/jA-"
+          id: "PIZZA"
+        title: "Restoran di Jakarta"
+      - groupType: "RESTAURANT"
+        restaurants:
+        - ratingDisplay:
+            rating: 4.5999999999999996447286321199499070644378662109375
+            ratingColor:
+              r: 153
+              b: 152
+              g: 37
+          imageUrl: "http://tny.im/jA-"
+          name: "Bureau Cafe"
+          locationLabel: "Central Park, Slipi"
+          id: "123"
+          cuisineType: "Western"
+        - ratingDisplay:
+            rating: 4.5999999999999996447286321199499070644378662109375
+            ratingColor:
+              r: 153
+              b: 152
+              g: 37
+          imageUrl: "http://tny.im/jA-"
+          name: "Bureau Cafe"
+          locationLabel: "Central Park, Slipi"
+          id: "123"
+          cuisineType: "Western"
+        dishes:
+        - imageUrl: "http://tny.im/jA-"
+          id: "PIZZA"
+        - imageUrl: "http://tny.im/jA-"
+          id: "PIZZA"
+        title: "Restoran di Jakarta"
+  GeoLocation:
+    type: "object"
+    required:
+    - "lat"
+    - "lon"
+    properties:
+      lat:
+        type: "number"
+        example: 23.449999999999999289457264239899814128875732421875
+      lon:
+        type: "number"
+        example: 68.4500000000000028421709430404007434844970703125
+    example:
+      lon: 68.4500000000000028421709430404007434844970703125
+      lat: 23.449999999999999289457264239899814128875732421875
+  HomepageRequest:
+    type: "object"
+    properties:
+      data:
+        $ref: "#/definitions/HomePageRequestData"
+      context:
+        $ref: "#/definitions/ContextRequest"
+    example:
+      data:
+        geoLocation:
+          lon: 68.4500000000000028421709430404007434844970703125
+          lat: 23.449999999999999289457264239899814128875732421875
+        geoDisplay:
+          name: "Jakarta"
+          locationType: "GEO"
+          id: 0
+      context:
+        session: "session"
+        clientInterface: "clientInterface"
+  ContextRequest:
+    type: "object"
+    required:
+    - "clientInterface"
+    properties:
+      session:
+        type: "string"
+      clientInterface:
+        type: "string"
+    example:
+      session: "session"
+      clientInterface: "clientInterface"
+  ContextResponse:
+    type: "object"
+    properties:
+      session:
+        type: "string"
+    example:
+      session: "session"
+  HomePageRequestData:
+    type: "object"
+    required:
+    - "geoDisplay"
+    - "geoLocation"
+    properties:
+      geoDisplay:
+        $ref: "#/definitions/GeoDisplay"
+      geoLocation:
+        $ref: "#/definitions/GeoLocation"
+    example:
+      geoLocation:
+        lon: 68.4500000000000028421709430404007434844970703125
+        lat: 23.449999999999999289457264239899814128875732421875
+      geoDisplay:
+        name: "Jakarta"
+        locationType: "GEO"
+        id: 0
+  HomepageResponse:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        $ref: "#/definitions/HomepageDataResponse"
+      context:
+        $ref: "#/definitions/ContextResponse"
+    example:
+      data:
+        geoDisplay:
+          name: "Jakarta"
+          locationType: "GEO"
+          id: 0
+        banners:
+        - imageUrl: "http://tny.im/jA-"
+          deeplink: "http://heyayo.id"
+        - imageUrl: "http://tny.im/jA-"
+          deeplink: "http://heyayo.id"
+        nearbyRestaurantDisplay:
+          imageUrl: "http://tny.im/jA-"
+          label: "See restaurant around me"
+        sections:
+        - groupType: "RESTAURANT"
+          restaurants:
+          - ratingDisplay:
+              rating: 4.5999999999999996447286321199499070644378662109375
+              ratingColor:
+                r: 153
+                b: 152
+                g: 37
+            imageUrl: "http://tny.im/jA-"
+            name: "Bureau Cafe"
+            locationLabel: "Central Park, Slipi"
+            id: "123"
+            cuisineType: "Western"
+          - ratingDisplay:
+              rating: 4.5999999999999996447286321199499070644378662109375
+              ratingColor:
+                r: 153
+                b: 152
+                g: 37
+            imageUrl: "http://tny.im/jA-"
+            name: "Bureau Cafe"
+            locationLabel: "Central Park, Slipi"
+            id: "123"
+            cuisineType: "Western"
+          dishes:
+          - imageUrl: "http://tny.im/jA-"
+            id: "PIZZA"
+          - imageUrl: "http://tny.im/jA-"
+            id: "PIZZA"
+          title: "Restoran di Jakarta"
+        - groupType: "RESTAURANT"
+          restaurants:
+          - ratingDisplay:
+              rating: 4.5999999999999996447286321199499070644378662109375
+              ratingColor:
+                r: 153
+                b: 152
+                g: 37
+            imageUrl: "http://tny.im/jA-"
+            name: "Bureau Cafe"
+            locationLabel: "Central Park, Slipi"
+            id: "123"
+            cuisineType: "Western"
+          - ratingDisplay:
+              rating: 4.5999999999999996447286321199499070644378662109375
+              ratingColor:
+                r: 153
+                b: 152
+                g: 37
+            imageUrl: "http://tny.im/jA-"
+            name: "Bureau Cafe"
+            locationLabel: "Central Park, Slipi"
+            id: "123"
+            cuisineType: "Western"
+          dishes:
+          - imageUrl: "http://tny.im/jA-"
+            id: "PIZZA"
+          - imageUrl: "http://tny.im/jA-"
+            id: "PIZZA"
+          title: "Restoran di Jakarta"
+      context:
+        session: "session"
+  HourMinute:
+    type: "object"
+    required:
+    - "hour"
+    properties:
+      hour:
+        type: "integer"
+        example: 7
+        minimum: 0
+        maximum: 23
+      minutes:
+        type: "integer"
+        example: 0
+        minimum: 0
+        maximum: 59
+    example:
+      hour: 7
+      minutes: 0
+  OpenHour:
+    type: "object"
+    required:
+    - "closed"
+    - "isToday"
+    - "operationHours"
+    - "weekDay"
+    properties:
+      weekDay:
+        type: "string"
+        example: "SUNDAY"
+        enum:
+        - "SUNDAY"
+        - "MONDAY"
+        - "TUESDAY"
+        - "WEDNESDAY"
+        - "THURSDAY"
+        - "FRIDAY"
+        - "SATURDAY"
+      operationHours:
+        type: "array"
+        items:
+          $ref: "#/definitions/OperationHour"
+      closed:
+        type: "boolean"
+        example: false
+      isToday:
+        type: "boolean"
+        example: false
+    example:
+      weekDay: "SUNDAY"
+      operationHours:
+      - closeTime:
+          hour: 7
+          minutes: 0
+        openTime:
+          hour: 7
+          minutes: 0
+      - closeTime:
+          hour: 7
+          minutes: 0
+        openTime:
+          hour: 7
+          minutes: 0
+      isToday: false
+      closed: false
+  OperationHour:
+    type: "object"
+    required:
+    - "closeTime"
+    - "openTime"
+    properties:
+      openTime:
+        $ref: "#/definitions/HourMinute"
+      closeTime:
+        $ref: "#/definitions/HourMinute"
+    example:
+      closeTime:
+        hour: 7
+        minutes: 0
+      openTime:
+        hour: 7
+        minutes: 0
+  Tag:
+    type: "object"
+    required:
+    - "imageUrl"
+    - "label"
+    properties:
+      label:
+        type: "string"
+        example: "Historical Building"
+      imageUrl:
+        type: "string"
+        example: "http://tny.im/jA-"
+    example:
+      imageUrl: "http://tny.im/jA-"
+      label: "Historical Building"
+  BestKnownFor:
+    type: "object"
+    required:
+    - "description"
+    properties:
+      description:
+        type: "string"
+        example: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas\
+          \ eu eros ac massa interdum mattis. Integer feugiat tortor sit amet ligula\
+          \ sodales, vel mollis sem laoreet. Pellentesque quis nibh vitae risus gravida\
+          \ cursus. Maecenas congue dictum consectetur. Fusce in nibh ut mi consectetur\
+          \ pretium. "
+      tags:
+        type: "array"
+        items:
+          $ref: "#/definitions/Tag"
+    example:
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas\
+        \ eu eros ac massa interdum mattis. Integer feugiat tortor sit amet ligula\
+        \ sodales, vel mollis sem laoreet. Pellentesque quis nibh vitae risus gravida\
+        \ cursus. Maecenas congue dictum consectetur. Fusce in nibh ut mi consectetur\
+        \ pretium. "
+      tags:
+      - imageUrl: "http://tny.im/jA-"
+        label: "Historical Building"
+      - imageUrl: "http://tny.im/jA-"
+        label: "Historical Building"
+  LocationInfo:
+    type: "object"
+    required:
+    - "address"
+    - "geoLocation"
+    - "label"
+    properties:
+      label:
+        type: "string"
+        example: "PIK Avenue, 2nd Floor"
+      address:
+        type: "string"
+        example: "Jalan S Parman Kav 77, Slipi, Jakarta Barat."
+      geoLocation:
+        $ref: "#/definitions/GeoLocation"
+    example:
+      address: "Jalan S Parman Kav 77, Slipi, Jakarta Barat."
+      geoLocation:
+        lon: 68.4500000000000028421709430404007434844970703125
+        lat: 23.449999999999999289457264239899814128875732421875
+      label: "PIK Avenue, 2nd Floor"
+  FeatureFacility:
+    type: "object"
+    required:
+    - "available"
+    - "iconImageUrl"
+    - "label"
+    properties:
+      iconImageUrl:
+        type: "string"
+        example: "http://tny.im/jA-"
+      label:
+        type: "string"
+        example: "Air Conditioned"
+      available:
+        type: "boolean"
+        example: true
+    example:
+      iconImageUrl: "http://tny.im/jA-"
+      available: true
+      label: "Air Conditioned"
+  RestaurantNearby:
+    type: "object"
+    required:
+    - "id"
+    - "imageUrl"
+    - "locationLabel"
+    - "name"
+    - "restaurantType"
+    properties:
+      id:
+        type: "string"
+        example: "123"
+      name:
+        type: "string"
+        example: "Bereau Cafe"
+      locationLabel:
+        type: "string"
+        example: "Central Park, Slipi"
+      restaurantType:
+        type: "string"
+        example: "Western"
+      imageUrl:
+        type: "string"
+        example: "http://tny.im/jA-"
+    example:
+      restaurantType: "Western"
+      imageUrl: "http://tny.im/jA-"
+      name: "Bereau Cafe"
+      locationLabel: "Central Park, Slipi"
+      id: "123"
+  Photo:
+    type: "object"
+    required:
+    - "category"
+    - "imageUrl"
+    - "subcategories"
+    properties:
+      imageUrl:
+        type: "string"
+        example: "http://tny.im/jA-"
+      category:
+        type: "string"
+        example: "AMBIENCE"
+      subcategories:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      imageUrl: "http://tny.im/jA-"
+      category: "AMBIENCE"
+      subcategories:
+      - "subcategories"
+      - "subcategories"
+  Color:
+    type: "object"
+    required:
+    - "b"
+    - "g"
+    - "r"
+    properties:
+      r:
+        type: "integer"
+        minimum: 0
+        maximum: 255
+      g:
+        type: "integer"
+        minimum: 0
+        maximum: 255
+      b:
+        type: "integer"
+        minimum: 0
+        maximum: 255
+    example:
+      r: 153
+      b: 152
+      g: 37
+  POIStatus:
+    type: "object"
+    required:
+    - "status"
+    - "statusLabel"
+    properties:
+      status:
+        type: "string"
+        example: "PERMANENTLY_CLOSED"
+        enum:
+        - "NEW"
+        - "COMING_SOON"
+        - "TEMP_CLOSED"
+        - "PERMANENTLY_CLOSED"
+      statusLabel:
+        type: "string"
+        example: "Opening again at 11 dec 2019"
+    example:
+      statusLabel: "Opening again at 11 dec 2019"
+      status: "PERMANENTLY_CLOSED"
+  Price:
+    type: "object"
+    required:
+    - "priceLabel"
+    properties:
+      priceLabel:
+        type: "string"
+        example: "Around Rp 100.000 per person"
+      priceDetail:
+        type: "string"
+        example: "price for 1 dish + 1 beverages"
+    example:
+      priceDetail: "price for 1 dish + 1 beverages"
+      priceLabel: "Around Rp 100.000 per person"
+  POIResponseData:
+    type: "object"
+    required:
+    - "cuisineDishTypes"
+    - "featureFacilities"
+    - "id"
+    - "imageUrlList"
+    - "locationInfo"
+    - "mainCuisine"
+    - "mainDish"
+    - "mainRestaurantType"
+    - "name"
+    - "openHourToday"
+    - "openHours"
+    - "openNow"
+    - "phoneNumbers"
+    - "photos"
+    - "price"
+    - "restaurantTypes"
+    properties:
+      id:
+        type: "string"
+        example: "123"
+      name:
+        type: "string"
+        example: "Chir Chir fusion Chicken"
+      bestKnownFor:
+        $ref: "#/definitions/BestKnownFor"
+      locationInfo:
+        $ref: "#/definitions/LocationInfo"
+      mainRestaurantType:
+        type: "string"
+        example: "Casual Dining"
+      mainCuisine:
+        type: "string"
+        example: "Korean"
+      mainDish:
+        type: "string"
+        example: "Fried Chicken"
+      POIstatus:
+        $ref: "#/definitions/POIStatus"
+      price:
+        $ref: "#/definitions/Price"
+      openNow:
+        type: "boolean"
+        example: true
+      openHourToday:
+        $ref: "#/definitions/OpenHour"
+      openHours:
+        type: "array"
+        items:
+          $ref: "#/definitions/OpenHour"
+      restaurantTypes:
+        type: "array"
+        items:
+          type: "string"
+      cuisineDishTypes:
+        type: "array"
+        items:
+          type: "string"
+      highlightedFeatureFacilities:
+        type: "array"
+        items:
+          $ref: "#/definitions/FeatureFacility"
+      featureFacilities:
+        type: "array"
+        items:
+          $ref: "#/definitions/FeatureFacility"
+      phoneNumbers:
+        type: "array"
+        items:
+          type: "string"
+      paymentMethods:
+        type: "array"
+        items:
+          $ref: "#/definitions/FeatureFacility"
+      restaurantNearbies:
+        type: "array"
+        items:
+          $ref: "#/definitions/RestaurantNearby"
+      photos:
+        type: "array"
+        items:
+          $ref: "#/definitions/Photo"
+      menus:
+        type: "array"
+        items:
+          $ref: "#/definitions/Photo"
+      imageUrlList:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      openHours:
+      - weekDay: "SUNDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      - weekDay: "SUNDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      bestKnownFor:
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas\
+          \ eu eros ac massa interdum mattis. Integer feugiat tortor sit amet ligula\
+          \ sodales, vel mollis sem laoreet. Pellentesque quis nibh vitae risus gravida\
+          \ cursus. Maecenas congue dictum consectetur. Fusce in nibh ut mi consectetur\
+          \ pretium. "
+        tags:
+        - imageUrl: "http://tny.im/jA-"
+          label: "Historical Building"
+        - imageUrl: "http://tny.im/jA-"
+          label: "Historical Building"
+      locationInfo:
+        address: "Jalan S Parman Kav 77, Slipi, Jakarta Barat."
+        geoLocation:
+          lon: 68.4500000000000028421709430404007434844970703125
+          lat: 23.449999999999999289457264239899814128875732421875
+        label: "PIK Avenue, 2nd Floor"
+      restaurantNearbies:
+      - restaurantType: "Western"
+        imageUrl: "http://tny.im/jA-"
+        name: "Bereau Cafe"
+        locationLabel: "Central Park, Slipi"
+        id: "123"
+      - restaurantType: "Western"
+        imageUrl: "http://tny.im/jA-"
+        name: "Bereau Cafe"
+        locationLabel: "Central Park, Slipi"
+        id: "123"
+      mainCuisine: "Korean"
+      POIstatus:
+        statusLabel: "Opening again at 11 dec 2019"
+        status: "PERMANENTLY_CLOSED"
+      mainDish: "Fried Chicken"
+      mainRestaurantType: "Casual Dining"
+      photos:
+      - imageUrl: "http://tny.im/jA-"
+        category: "AMBIENCE"
+        subcategories:
+        - "subcategories"
+        - "subcategories"
+      - imageUrl: "http://tny.im/jA-"
+        category: "AMBIENCE"
+        subcategories:
+        - "subcategories"
+        - "subcategories"
+      phoneNumbers:
+      - "phoneNumbers"
+      - "phoneNumbers"
+      restaurantTypes:
+      - "restaurantTypes"
+      - "restaurantTypes"
+      imageUrlList:
+      - "imageUrlList"
+      - "imageUrlList"
+      featureFacilities:
+      - iconImageUrl: "http://tny.im/jA-"
+        available: true
+        label: "Air Conditioned"
+      - iconImageUrl: "http://tny.im/jA-"
+        available: true
+        label: "Air Conditioned"
+      price:
+        priceDetail: "price for 1 dish + 1 beverages"
+        priceLabel: "Around Rp 100.000 per person"
+      paymentMethods:
+      - iconImageUrl: "http://tny.im/jA-"
+        available: true
+        label: "Air Conditioned"
+      - iconImageUrl: "http://tny.im/jA-"
+        available: true
+        label: "Air Conditioned"
+      name: "Chir Chir fusion Chicken"
+      openNow: true
+      id: "123"
+      openHourToday:
+        weekDay: "SUNDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      highlightedFeatureFacilities:
+      - iconImageUrl: "http://tny.im/jA-"
+        available: true
+        label: "Air Conditioned"
+      - iconImageUrl: "http://tny.im/jA-"
+        available: true
+        label: "Air Conditioned"
+      menus:
+      - imageUrl: "http://tny.im/jA-"
+        category: "AMBIENCE"
+        subcategories:
+        - "subcategories"
+        - "subcategories"
+      - imageUrl: "http://tny.im/jA-"
+        category: "AMBIENCE"
+        subcategories:
+        - "subcategories"
+        - "subcategories"
+      cuisineDishTypes:
+      - "cuisineDishTypes"
+      - "cuisineDishTypes"
+  POIRequestData:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "string"
+        example: "123"
+    example:
+      id: "123"
+  POIResponse:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        $ref: "#/definitions/POIResponseData"
+      context:
+        $ref: "#/definitions/ContextResponse"
+    example:
+      data:
+        openHours:
+        - weekDay: "SUNDAY"
+          operationHours:
+          - closeTime:
+              hour: 7
+              minutes: 0
+            openTime:
+              hour: 7
+              minutes: 0
+          - closeTime:
+              hour: 7
+              minutes: 0
+            openTime:
+              hour: 7
+              minutes: 0
+          isToday: false
+          closed: false
+        - weekDay: "SUNDAY"
+          operationHours:
+          - closeTime:
+              hour: 7
+              minutes: 0
+            openTime:
+              hour: 7
+              minutes: 0
+          - closeTime:
+              hour: 7
+              minutes: 0
+            openTime:
+              hour: 7
+              minutes: 0
+          isToday: false
+          closed: false
+        bestKnownFor:
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas\
+            \ eu eros ac massa interdum mattis. Integer feugiat tortor sit amet ligula\
+            \ sodales, vel mollis sem laoreet. Pellentesque quis nibh vitae risus\
+            \ gravida cursus. Maecenas congue dictum consectetur. Fusce in nibh ut\
+            \ mi consectetur pretium. "
+          tags:
+          - imageUrl: "http://tny.im/jA-"
+            label: "Historical Building"
+          - imageUrl: "http://tny.im/jA-"
+            label: "Historical Building"
+        locationInfo:
+          address: "Jalan S Parman Kav 77, Slipi, Jakarta Barat."
+          geoLocation:
+            lon: 68.4500000000000028421709430404007434844970703125
+            lat: 23.449999999999999289457264239899814128875732421875
+          label: "PIK Avenue, 2nd Floor"
+        restaurantNearbies:
+        - restaurantType: "Western"
+          imageUrl: "http://tny.im/jA-"
+          name: "Bereau Cafe"
+          locationLabel: "Central Park, Slipi"
+          id: "123"
+        - restaurantType: "Western"
+          imageUrl: "http://tny.im/jA-"
+          name: "Bereau Cafe"
+          locationLabel: "Central Park, Slipi"
+          id: "123"
+        mainCuisine: "Korean"
+        POIstatus:
+          statusLabel: "Opening again at 11 dec 2019"
+          status: "PERMANENTLY_CLOSED"
+        mainDish: "Fried Chicken"
+        mainRestaurantType: "Casual Dining"
+        photos:
+        - imageUrl: "http://tny.im/jA-"
+          category: "AMBIENCE"
+          subcategories:
+          - "subcategories"
+          - "subcategories"
+        - imageUrl: "http://tny.im/jA-"
+          category: "AMBIENCE"
+          subcategories:
+          - "subcategories"
+          - "subcategories"
+        phoneNumbers:
+        - "phoneNumbers"
+        - "phoneNumbers"
+        restaurantTypes:
+        - "restaurantTypes"
+        - "restaurantTypes"
+        imageUrlList:
+        - "imageUrlList"
+        - "imageUrlList"
+        featureFacilities:
+        - iconImageUrl: "http://tny.im/jA-"
+          available: true
+          label: "Air Conditioned"
+        - iconImageUrl: "http://tny.im/jA-"
+          available: true
+          label: "Air Conditioned"
+        price:
+          priceDetail: "price for 1 dish + 1 beverages"
+          priceLabel: "Around Rp 100.000 per person"
+        paymentMethods:
+        - iconImageUrl: "http://tny.im/jA-"
+          available: true
+          label: "Air Conditioned"
+        - iconImageUrl: "http://tny.im/jA-"
+          available: true
+          label: "Air Conditioned"
+        name: "Chir Chir fusion Chicken"
+        openNow: true
+        id: "123"
+        openHourToday:
+          weekDay: "SUNDAY"
+          operationHours:
+          - closeTime:
+              hour: 7
+              minutes: 0
+            openTime:
+              hour: 7
+              minutes: 0
+          - closeTime:
+              hour: 7
+              minutes: 0
+            openTime:
+              hour: 7
+              minutes: 0
+          isToday: false
+          closed: false
+        highlightedFeatureFacilities:
+        - iconImageUrl: "http://tny.im/jA-"
+          available: true
+          label: "Air Conditioned"
+        - iconImageUrl: "http://tny.im/jA-"
+          available: true
+          label: "Air Conditioned"
+        menus:
+        - imageUrl: "http://tny.im/jA-"
+          category: "AMBIENCE"
+          subcategories:
+          - "subcategories"
+          - "subcategories"
+        - imageUrl: "http://tny.im/jA-"
+          category: "AMBIENCE"
+          subcategories:
+          - "subcategories"
+          - "subcategories"
+        cuisineDishTypes:
+        - "cuisineDishTypes"
+        - "cuisineDishTypes"
+      context:
+        session: "session"
+  POIRequest:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        $ref: "#/definitions/POIRequestData"
+      context:
+        $ref: "#/definitions/ContextRequest"
+    example:
+      data:
+        id: "123"
+      context:
+        session: "session"
+        clientInterface: "clientInterface"
