@@ -66,6 +66,32 @@ paths:
         400:
           description: "Invalide POI id"
       x-swagger-router-controller: "Poi"
+  /location:
+    post:
+      tags:
+      - "location"
+      summary: "get the location"
+      description: ""
+      operationId: "location"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/LocationRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/LocationResponse"
+        400:
+          description: "Invalide  query"
+      x-swagger-router-controller: "location"
 definitions:
   GeoDisplay:
     type: "object"
@@ -1191,6 +1217,87 @@ definitions:
     example:
       data:
         id: "123"
+      context:
+        session: "session"
+        clientInterface: "clientInterface"
+  LocationRequestData:
+    type: "object"
+    required:
+    - "query"
+    properties:
+      query:
+        type: "string"
+    example:
+      query: "123"
+  LocationRequest:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        $ref: "#/definitions/LocationRequestData"
+      context:
+        $ref: "#/definitions/ContextRequest"
+    example:
+      data:
+        query: "slipi"
+      context:
+        session: "session"
+        clientInterface: "clientInterface"
+  LocationResponseData:
+    type: "object"
+    required:
+    - "locations"
+    properties:
+      locations:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            geoDisplay:
+              $ref: "#/definitions/GeoDisplay"
+  LocationResponse:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        $ref: "#/definitions/LocationResponseData"
+      context:
+        $ref: "#/definitions/ContextRequest"
+    example:
+      data:
+        locations:
+          - geoDisplay:
+              name: "Jakarta, Indonesia"
+              locationType: "GEO"
+              id: 1
+          - geoDisplay:
+              name: "Atma Jaya, Jakarta"
+              locationType: "GEO"
+              id: 2
+          - geoDisplay:
+              name: "Wisma 77 Tower 2, Jakarta"
+              locationType: "GEO"
+              id: 3
+          - geoDisplay:
+              name: "Taman Wisata Jaya Ancol"
+              locationType: "GEO"
+              id: 4
+          - geoDisplay:
+              name: "Ragunan"
+              locationType: "GEO"
+              id: 5
+          - geoDisplay:
+              name: "Gedung Citicon, Slipi"
+              locationType: "GEO"
+              id: 6
+          - geoDisplay:
+              name: "Menara Peninsula"
+              locationType: "GEO"
+              id: 7
       context:
         session: "session"
         clientInterface: "clientInterface"
