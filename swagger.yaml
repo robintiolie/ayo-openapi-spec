@@ -91,7 +91,7 @@ paths:
             $ref: "#/definitions/LocationResponse"
         400:
           description: "Invalide  query"
-      x-swagger-router-controller: "location"
+      x-swagger-router-controller: "Location"
 definitions:
   GeoDisplay:
     type: "object"
