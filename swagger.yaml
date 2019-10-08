@@ -491,7 +491,7 @@ definitions:
           - imageUrl: "http://tny.im/jA-"
             id: "PIZZA"
           title: "Restoran di Jakarta"
-        - groupType: "RESTAURANT"
+        - groupType: "DISH"
           restaurants:
           - ratingDisplay:
               rating: 4.5999999999999996447286321199499070644378662109375
