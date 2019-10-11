@@ -722,6 +722,7 @@ definitions:
     required:
     - "category"
     - "imageUrl"
+    - "mainSubcategory"
     - "subcategories"
     properties:
       imageUrl:
@@ -730,6 +731,9 @@ definitions:
       category:
         type: "string"
         example: "AMBIENCE"
+      mainSubcategory:
+        type: "string"
+        example: "Indoor seating"
       subcategories:
         type: "array"
         items:
@@ -737,9 +741,38 @@ definitions:
     example:
       imageUrl: "http://tny.im/jA-"
       category: "AMBIENCE"
+      mainSubcategory: "Indoor Seating"
       subcategories:
       - "subcategories"
       - "subcategories"
+  PhotoGroupDisplay:
+    type: "object"
+    required:
+        - "photos"
+        - "tab"
+    properties:
+        photos:
+            type: "array"
+            items:
+                $ref: "#/definitions/Photo"
+        tab:
+            type: "string"
+            example: "Menu"
+    example:
+        tab: "Menu"
+        photos:
+        - imageUrl: "http://tny.im/jA-"
+          category: "AMBIENCE"
+          mainSubcategory: "Indoor seating"
+          subcategories:
+            - "subcategories"
+            - "subcategories"
+        - imageUrl: "http://tny.im/jA-"
+          category: "AMBIENCE"
+          mainSubcategory: "Indoor seating"
+          subcategories:
+            - "subcategories"
+            - "subcategories"
   Color:
     type: "object"
     required:
@@ -803,7 +836,7 @@ definitions:
     - "cuisineDishTypes"
     - "featureFacilities"
     - "id"
-    - "imageUrlList"
+    - "poiPhotosList"
     - "locationInfo"
     - "mainCuisine"
     - "mainDish"
@@ -811,7 +844,6 @@ definitions:
     - "name"
     - "openHourToday"
     - "openHours"
-    - "openNow"
     - "phoneNumbers"
     - "photos"
     - "price"
@@ -840,9 +872,6 @@ definitions:
         $ref: "#/definitions/POIStatus"
       price:
         $ref: "#/definitions/Price"
-      openNow:
-        type: "boolean"
-        example: true
       openHourToday:
         $ref: "#/definitions/OpenHour"
       openHours:
@@ -880,12 +909,12 @@ definitions:
       photos:
         type: "array"
         items:
-          $ref: "#/definitions/Photo"
+          $ref: "#/definitions/PhotoGroupDisplay"
       menus:
         type: "array"
         items:
-          $ref: "#/definitions/Photo"
-      imageUrlList:
+          $ref: "#/definitions/PhotoGroupDisplay"
+      poiPhotosList:
         type: "array"
         items:
           type: "string"
@@ -960,11 +989,13 @@ definitions:
       photos:
       - imageUrl: "http://tny.im/jA-"
         category: "AMBIENCE"
+        mainSubcategory: "Indoor Seating"
         subcategories:
         - "subcategories"
         - "subcategories"
       - imageUrl: "http://tny.im/jA-"
         category: "AMBIENCE"
+        mainSubcategory: "Indoor Seating"
         subcategories:
         - "subcategories"
         - "subcategories"
@@ -974,7 +1005,7 @@ definitions:
       restaurantTypes:
       - "restaurantTypes"
       - "restaurantTypes"
-      imageUrlList:
+      poiPhotosList:
       - "imageUrlList"
       - "imageUrlList"
       featureFacilities:
@@ -995,7 +1026,6 @@ definitions:
         available: true
         label: "Air Conditioned"
       name: "Chir Chir fusion Chicken"
-      openNow: true
       id: "123"
       openHourToday:
         weekDay: "SUNDAY"
@@ -1125,23 +1155,27 @@ definitions:
         mainDish: "Fried Chicken"
         mainRestaurantType: "Casual Dining"
         photos:
-        - imageUrl: "http://tny.im/jA-"
-          category: "AMBIENCE"
-          subcategories:
-          - "subcategories"
-          - "subcategories"
-        - imageUrl: "http://tny.im/jA-"
-          category: "AMBIENCE"
-          subcategories:
-          - "subcategories"
-          - "subcategories"
+        - tab: "Menu"
+          photos:
+          - imageUrl: "http://tny.im/jA-"
+            category: "AMBIENCE"
+            mainSubcategory: "Indoor seating"
+            subcategories:
+            - "subcategories"
+            - "subcategories"
+          - imageUrl: "http://tny.im/jA-"
+            category: "AMBIENCE"
+            mainSubcategory: "Indoor seating"
+            subcategories:
+            - "subcategories"
+            - "subcategories"
         phoneNumbers:
         - "phoneNumbers"
         - "phoneNumbers"
         restaurantTypes:
         - "restaurantTypes"
         - "restaurantTypes"
-        imageUrlList:
+        poiPhotosList:
         - "imageUrlList"
         - "imageUrlList"
         featureFacilities:
@@ -1162,7 +1196,6 @@ definitions:
           available: true
           label: "Air Conditioned"
         name: "Chir Chir fusion Chicken"
-        openNow: true
         id: "123"
         openHourToday:
           weekDay: "SUNDAY"
@@ -1189,16 +1222,20 @@ definitions:
           available: true
           label: "Air Conditioned"
         menus:
-        - imageUrl: "http://tny.im/jA-"
-          category: "AMBIENCE"
-          subcategories:
-          - "subcategories"
-          - "subcategories"
-        - imageUrl: "http://tny.im/jA-"
-          category: "AMBIENCE"
-          subcategories:
-          - "subcategories"
-          - "subcategories"
+        - tab: "Menu"
+          photos:
+          - imageUrl: "http://tny.im/jA-"
+            category: "AMBIENCE"
+            mainSubcategory: "Indoor seating"
+            subcategories:
+            - "subcategories"
+            - "subcategories"
+          - imageUrl: "http://tny.im/jA-"
+            category: "AMBIENCE"
+            mainSubcategory: "Indoor seating"
+            subcategories:
+            - "subcategories"
+            - "subcategories"
         cuisineDishTypes:
         - "cuisineDishTypes"
         - "cuisineDishTypes"
