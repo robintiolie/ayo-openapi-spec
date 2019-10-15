@@ -845,7 +845,8 @@ definitions:
     - "openHourToday"
     - "openHours"
     - "phoneNumbers"
-    - "photos"
+    - "photo"
+    - "menu"
     - "price"
     - "restaurantTypes"
     properties:
@@ -906,14 +907,10 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/RestaurantNearby"
-      photos:
-        type: "array"
-        items:
-          $ref: "#/definitions/PhotoGroupDisplay"
-      menus:
-        type: "array"
-        items:
-          $ref: "#/definitions/PhotoGroupDisplay"
+      photo:
+        $ref: "#/definitions/PhotoGroupDisplay"
+      menu:
+        $ref: "#/definitions/PhotoGroupDisplay"
       poiPhotosList:
         type: "array"
         items:
@@ -1051,7 +1048,7 @@ definitions:
       - iconImageUrl: "http://tny.im/jA-"
         available: true
         label: "Air Conditioned"
-      menus:
+      menu:
       - imageUrl: "http://tny.im/jA-"
         category: "AMBIENCE"
         subcategories:
@@ -1154,7 +1151,7 @@ definitions:
           status: "PERMANENTLY_CLOSED"
         mainDish: "Fried Chicken"
         mainRestaurantType: "Casual Dining"
-        photos:
+        photo:
         - tab: "Menu"
           photos:
           - imageUrl: "http://tny.im/jA-"
@@ -1221,7 +1218,7 @@ definitions:
         - iconImageUrl: "http://tny.im/jA-"
           available: true
           label: "Air Conditioned"
-        menus:
+        menu:
         - tab: "Menu"
           photos:
           - imageUrl: "http://tny.im/jA-"
