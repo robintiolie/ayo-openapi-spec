@@ -983,19 +983,7 @@ definitions:
         status: "PERMANENTLY_CLOSED"
       mainDish: "Fried Chicken"
       mainRestaurantType: "Casual Dining"
-      photos:
-      - imageUrl: "http://tny.im/jA-"
-        category: "AMBIENCE"
-        mainSubcategory: "Indoor Seating"
-        subcategories:
-        - "subcategories"
-        - "subcategories"
-      - imageUrl: "http://tny.im/jA-"
-        category: "AMBIENCE"
-        mainSubcategory: "Indoor Seating"
-        subcategories:
-        - "subcategories"
-        - "subcategories"
+
       phoneNumbers:
       - "phoneNumbers"
       - "phoneNumbers"
@@ -1048,20 +1036,6 @@ definitions:
       - iconImageUrl: "http://tny.im/jA-"
         available: true
         label: "Air Conditioned"
-      menu:
-      - imageUrl: "http://tny.im/jA-"
-        category: "AMBIENCE"
-        subcategories:
-        - "subcategories"
-        - "subcategories"
-      - imageUrl: "http://tny.im/jA-"
-        category: "AMBIENCE"
-        subcategories:
-        - "subcategories"
-        - "subcategories"
-      cuisineDishTypes:
-      - "cuisineDishTypes"
-      - "cuisineDishTypes"
   POIRequestData:
     type: "object"
     required:
@@ -1152,7 +1126,7 @@ definitions:
         mainDish: "Fried Chicken"
         mainRestaurantType: "Casual Dining"
         photo:
-        - tab: "Menu"
+          tab: "ALL"
           photos:
           - imageUrl: "http://tny.im/jA-"
             category: "AMBIENCE"
@@ -1219,7 +1193,7 @@ definitions:
           available: true
           label: "Air Conditioned"
         menu:
-        - tab: "Menu"
+          tab: "Menu"
           photos:
           - imageUrl: "http://tny.im/jA-"
             category: "AMBIENCE"
