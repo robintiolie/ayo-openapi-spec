@@ -92,6 +92,32 @@ paths:
         400:
           description: "Invalide  query"
       x-swagger-router-controller: "Location"
+  /searchresult:
+    post:
+      tags:
+      - "searchresult"
+      summary: "get search result"
+      description: "Api Call to get Search Result"
+      operationId: "searchresult"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/SearchResultRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/LocationResponse"
+        400:
+          description: "Invalide  query"
+      x-swagger-router-controller: "Location"
 definitions:
   GeoDisplay:
     type: "object"
@@ -1309,3 +1335,144 @@ definitions:
       context:
         session: "session"
         clientInterface: "clientInterface"
+  SearchResultRequest:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        $ref: "#/definitions/SearchResultRequestData"
+      context:
+        $ref: "#/definitions/ContextRequest"
+    example:
+      data:
+        geoLocation:
+          lon: 68.4500000000000028421709430404007434844970703125
+          lat: 23.449999999999999289457264239899814128875732421875
+        geoDisplay:
+          name: "Jakarta"
+          locationType: "GEO"
+          id: 0
+        filterSpec:
+          quick_filter: 
+            - "Open Now"
+            - "24 Hours"
+          rating: 
+            - "rating"
+            - "rating"
+          price:
+            - "price"
+            - "price"
+          type:
+            - "type"
+            - "type"
+          cuisine:
+            - "cuisine"
+            - "cuisine"
+          dish:
+            - "dish"
+            - "dish"
+          dietary:
+            - "dietary"
+            - "dietary"
+          facility_list:
+            - "facility_list"
+            - "facility_list"
+        sort: "Popularity"
+      context:
+        session: "session"
+        clientInterface: "clientInterface"
+  SearchResultRequestData:
+    type: "object"
+    required: 
+      - "geoDisplay"
+      - "geoLocation"
+    properties:
+      geoDisplay: 
+       $ref: "#/definitions/GeoDisplay"
+      geoLocation:
+        $ref: "#/definitions/GeoLocation"
+      filterSpec:
+       $ref: "#/definitions/SearchResultFilterSpec"
+      sort:
+        type: "string"
+        example: "Popularity"
+    example:
+      geoLocation:
+        lon: 68.4500000000000028421709430404007434844970703125
+        lat: 23.449999999999999289457264239899814128875732421875
+      geoDisplay:
+        name: "Jakarta"
+        locationType: "GEO"
+        id: 0
+      filterSpec:
+        quick_filter: 
+          - "24 Hours"
+          - "Open Now"
+        rating: 
+          - "3+"
+          - "4+"        
+        price: 
+          - "Fine Dining"
+          - "Casual Dining"
+        type: 
+          - "Fine Dining"
+          - "Casual Dining"
+        cuisine: 
+          - "Chinese"
+          - "Indonesian"
+        dish: 
+          - "Padang"
+          - "Sushi"
+        dietary: 
+          - "Vegan"
+          - "Halal"
+        facility_list: 
+          - "Toilet"
+          - "Praying Room"
+      sort: "Popularity" 
+  SearchResultFilterSpec:
+    type: "object"
+    required:
+    - "quick_filter"
+    - "rating"
+    - "price"
+    - "type"
+    - "cuisine"
+    - "dish"
+    - "dietary"
+    - "facility_list"
+    properties:
+      quick_filter:
+       type: "array"
+       items:
+          type: "string"
+      rating:
+       type: "array"
+       items:
+          type: "string"
+      price:
+       type: "array"
+       items:
+          type: "string"    
+      type:
+       type: "array"
+       items:
+          type: "string"
+      cuisine:
+       type: "array"
+       items:
+          type: "string"
+      dish:
+       type: "array"
+       items:
+          type: "string"
+      dietary:
+       type: "array"
+       items:
+          type: "string"
+      facility_list:
+       type: "array"
+       items:
+          type: "string"
