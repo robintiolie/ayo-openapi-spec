@@ -793,10 +793,9 @@ definitions:
         lon: 68.4500000000000028421709430404007434844970703125
         lat: 23.449999999999999289457264239899814128875732421875
       label: "PIK Avenue, 2nd Floor"
-  FeatureFacility:
+  PaymentMethod:
     type: "object"
     required:
-    - "available"
     - "iconImageUrl"
     - "label"
     properties:
@@ -806,13 +805,54 @@ definitions:
       label:
         type: "string"
         example: "Air Conditioned"
-      available:
-        type: "boolean"
-        example: true
-    example:
-      iconImageUrl: "http://tny.im/jA-"
-      available: true
-      label: "Air Conditioned"
+      sublabels:
+        type: "array"
+        items:
+          type: "string"
+        example: 
+        - "Gojek"
+        - "Grab"
+  PaymentMethodDisplay:
+    type: "object"
+    properties: 
+      availables:
+        type: "array"
+        items:
+          $ref: "#/definitions/PaymentMethod"
+      unavailables:
+        type: "array"
+        items:
+          $ref: "#/definitions/PaymentMethod"
+  Amenity:
+    type: "object"
+    required:
+    - "iconImageUrl"
+    - "label"
+    properties:
+      iconImageUrl:
+        type: "string"
+        example: "http://tny.im/jA-"
+      label:
+        type: "string"
+        example: "Air Conditioned"
+      sublabels:
+        type: "array"
+        items:
+          type: "string"
+        example: 
+        - "Gojek"
+        - "Grab"
+  AmenityDisplay:
+    type: "object"
+    properties: 
+      availables:
+        type: "array"
+        items:
+          $ref: "#/definitions/Amenity"
+      unavailables:
+        type: "array"
+        items:
+          $ref: "#/definitions/Amenity"
   RestaurantNearby:
     type: "object"
     required:
@@ -960,7 +1000,7 @@ definitions:
     type: "object"
     required:
     - "cuisineDishTypes"
-    - "featureFacilities"
+    - "amenities"
     - "id"
     - "poiPhotosList"
     - "locationInfo"
@@ -1013,22 +1053,18 @@ definitions:
         type: "array"
         items:
           type: "string"
-      highlightedFeatureFacilities:
+      highlightedAmenties:
         type: "array"
         items:
-          $ref: "#/definitions/FeatureFacility"
-      featureFacilities:
-        type: "array"
-        items:
-          $ref: "#/definitions/FeatureFacility"
+          $ref: "#/definitions/Amenity"
+      amenityDisplay:
+        $ref: "#/definitions/AmenityDisplay"
       phoneNumbers:
         type: "array"
         items:
           type: "string"
-      paymentMethods:
-        type: "array"
-        items:
-          $ref: "#/definitions/FeatureFacility"
+      paymentMethodDisplay:
+        $ref: "#/definitions/PaymentMethodDisplay"
       restaurantNearbies:
         type: "array"
         items:
@@ -1041,127 +1077,9 @@ definitions:
         type: "array"
         items:
           type: "string"
-    example:
-      openHours:
-      - weekDay: "SUNDAY"
-        operationHours:
-        - closeTime:
-            hour: 7
-            minutes: 0
-          openTime:
-            hour: 7
-            minutes: 0
-        - closeTime:
-            hour: 7
-            minutes: 0
-          openTime:
-            hour: 7
-            minutes: 0
-        isToday: false
-        closed: false
-      - weekDay: "SUNDAY"
-        operationHours:
-        - closeTime:
-            hour: 7
-            minutes: 0
-          openTime:
-            hour: 7
-            minutes: 0
-        - closeTime:
-            hour: 7
-            minutes: 0
-          openTime:
-            hour: 7
-            minutes: 0
-        isToday: false
-        closed: false
-      bestKnownFor:
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas\
-          \ eu eros ac massa interdum mattis. Integer feugiat tortor sit amet ligula\
-          \ sodales, vel mollis sem laoreet. Pellentesque quis nibh vitae risus gravida\
-          \ cursus. Maecenas congue dictum consectetur. Fusce in nibh ut mi consectetur\
-          \ pretium. "
-        tags:
-        - imageUrl: "http://tny.im/jA-"
-          label: "Historical Building"
-        - imageUrl: "http://tny.im/jA-"
-          label: "Historical Building"
-      locationInfo:
-        address: "Jalan S Parman Kav 77, Slipi, Jakarta Barat."
-        geoLocation:
-          lon: 68.4500000000000028421709430404007434844970703125
-          lat: 23.449999999999999289457264239899814128875732421875
-        label: "PIK Avenue, 2nd Floor"
-      restaurantNearbies:
-      - restaurantType: "Western"
-        imageUrl: "http://tny.im/jA-"
-        name: "Bereau Cafe"
-        locationLabel: "Central Park, Slipi"
-        id: "123"
-      - restaurantType: "Western"
-        imageUrl: "http://tny.im/jA-"
-        name: "Bereau Cafe"
-        locationLabel: "Central Park, Slipi"
-        id: "123"
-      mainCuisine: "Korean"
-      POIstatus:
-        statusLabel: "Opening again at 11 dec 2019"
-        status: "PERMANENTLY_CLOSED"
-      mainDish: "Fried Chicken"
-      mainRestaurantType: "Casual Dining"
-
-      phoneNumbers:
-      - "phoneNumbers"
-      - "phoneNumbers"
-      restaurantTypes:
-      - "restaurantTypes"
-      - "restaurantTypes"
-      poiPhotosList:
-      - "imageUrlList"
-      - "imageUrlList"
-      featureFacilities:
-      - iconImageUrl: "http://tny.im/jA-"
-        available: true
-        label: "Air Conditioned"
-      - iconImageUrl: "http://tny.im/jA-"
-        available: true
-        label: "Air Conditioned"
-      price:
-        priceDetail: "price for 1 dish + 1 beverages"
-        priceLabel: "Around Rp 100.000 per person"
-      paymentMethods:
-      - iconImageUrl: "http://tny.im/jA-"
-        available: true
-        label: "Air Conditioned"
-      - iconImageUrl: "http://tny.im/jA-"
-        available: true
-        label: "Air Conditioned"
-      name: "Chir Chir fusion Chicken"
-      id: "123"
-      openHourToday:
-        weekDay: "SUNDAY"
-        operationHours:
-        - closeTime:
-            hour: 7
-            minutes: 0
-          openTime:
-            hour: 7
-            minutes: 0
-        - closeTime:
-            hour: 7
-            minutes: 0
-          openTime:
-            hour: 7
-            minutes: 0
-        isToday: false
-        closed: false
-      highlightedFeatureFacilities:
-      - iconImageUrl: "http://tny.im/jA-"
-        available: true
-        label: "Air Conditioned"
-      - iconImageUrl: "http://tny.im/jA-"
-        available: true
-        label: "Air Conditioned"
+      capacity:
+        type: "integer"
+        example: 100
   POIRequestData:
     type: "object"
     required:
@@ -1182,162 +1100,6 @@ definitions:
         $ref: "#/definitions/POIResponseData"
       context:
         $ref: "#/definitions/ContextResponse"
-    example:
-      data:
-        openHours:
-        - weekDay: "SUNDAY"
-          operationHours:
-          - closeTime:
-              hour: 7
-              minutes: 0
-            openTime:
-              hour: 7
-              minutes: 0
-          - closeTime:
-              hour: 7
-              minutes: 0
-            openTime:
-              hour: 7
-              minutes: 0
-          isToday: false
-          closed: false
-        - weekDay: "SUNDAY"
-          operationHours:
-          - closeTime:
-              hour: 7
-              minutes: 0
-            openTime:
-              hour: 7
-              minutes: 0
-          - closeTime:
-              hour: 7
-              minutes: 0
-            openTime:
-              hour: 7
-              minutes: 0
-          isToday: false
-          closed: false
-        bestKnownFor:
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas\
-            \ eu eros ac massa interdum mattis. Integer feugiat tortor sit amet ligula\
-            \ sodales, vel mollis sem laoreet. Pellentesque quis nibh vitae risus\
-            \ gravida cursus. Maecenas congue dictum consectetur. Fusce in nibh ut\
-            \ mi consectetur pretium. "
-          tags:
-          - imageUrl: "http://tny.im/jA-"
-            label: "Historical Building"
-          - imageUrl: "http://tny.im/jA-"
-            label: "Historical Building"
-        locationInfo:
-          address: "Jalan S Parman Kav 77, Slipi, Jakarta Barat."
-          geoLocation:
-            lon: 68.4500000000000028421709430404007434844970703125
-            lat: 23.449999999999999289457264239899814128875732421875
-          label: "PIK Avenue, 2nd Floor"
-        restaurantNearbies:
-        - restaurantType: "Western"
-          imageUrl: "http://tny.im/jA-"
-          name: "Bereau Cafe"
-          locationLabel: "Central Park, Slipi"
-          id: "123"
-        - restaurantType: "Western"
-          imageUrl: "http://tny.im/jA-"
-          name: "Bereau Cafe"
-          locationLabel: "Central Park, Slipi"
-          id: "123"
-        mainCuisine: "Korean"
-        POIstatus:
-          statusLabel: "Opening again at 11 dec 2019"
-          status: "PERMANENTLY_CLOSED"
-        mainDish: "Fried Chicken"
-        mainRestaurantType: "Casual Dining"
-        photo:
-          tab: "ALL"
-          photos:
-          - imageUrl: "http://tny.im/jA-"
-            category: "AMBIENCE"
-            mainSubcategory: "Indoor seating"
-            subcategories:
-            - "subcategories"
-            - "subcategories"
-          - imageUrl: "http://tny.im/jA-"
-            category: "AMBIENCE"
-            mainSubcategory: "Indoor seating"
-            subcategories:
-            - "subcategories"
-            - "subcategories"
-        phoneNumbers:
-        - "phoneNumbers"
-        - "phoneNumbers"
-        restaurantTypes:
-        - "restaurantTypes"
-        - "restaurantTypes"
-        poiPhotosList:
-        - "imageUrlList"
-        - "imageUrlList"
-        featureFacilities:
-        - iconImageUrl: "http://tny.im/jA-"
-          available: true
-          label: "Air Conditioned"
-        - iconImageUrl: "http://tny.im/jA-"
-          available: true
-          label: "Air Conditioned"
-        price:
-          priceDetail: "price for 1 dish + 1 beverages"
-          priceLabel: "Around Rp 100.000 per person"
-        paymentMethods:
-        - iconImageUrl: "http://tny.im/jA-"
-          available: true
-          label: "Air Conditioned"
-        - iconImageUrl: "http://tny.im/jA-"
-          available: true
-          label: "Air Conditioned"
-        name: "Chir Chir fusion Chicken"
-        id: "123"
-        openHourToday:
-          weekDay: "SUNDAY"
-          operationHours:
-          - closeTime:
-              hour: 7
-              minutes: 0
-            openTime:
-              hour: 7
-              minutes: 0
-          - closeTime:
-              hour: 7
-              minutes: 0
-            openTime:
-              hour: 7
-              minutes: 0
-          isToday: false
-          closed: false
-        highlightedFeatureFacilities:
-        - iconImageUrl: "http://tny.im/jA-"
-          available: true
-          label: "Air Conditioned"
-        - iconImageUrl: "http://tny.im/jA-"
-          available: true
-          label: "Air Conditioned"
-        menu:
-          tab: "Menu"
-          photos:
-          - imageUrl: "http://tny.im/jA-"
-            category: "AMBIENCE"
-            mainSubcategory: "Indoor seating"
-            subcategories:
-            - "subcategories"
-            - "subcategories"
-          - imageUrl: "http://tny.im/jA-"
-            category: "AMBIENCE"
-            mainSubcategory: "Indoor seating"
-            subcategories:
-            - "subcategories"
-            - "subcategories"
-        cuisineDishTypes:
-        - "cuisineDishTypes"
-        - "cuisineDishTypes"
-      context:
-        session: "session"
   POIRequest:
     type: "object"
     required:
