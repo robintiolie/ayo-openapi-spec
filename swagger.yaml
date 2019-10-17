@@ -92,13 +92,39 @@ paths:
         400:
           description: "Invalide  query"
       x-swagger-router-controller: "Location"
-  /searchresult:
+  /search/spec:
     post:
       tags:
-      - "searchresult"
+      - "searchresultspec"
+      summary: "get search result page spec"
+      description: "Api Call to get Search Result Spec; like filter and sort"
+      operationId: "search_spec"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/SearchResultSpecRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/SearchResultSpecResponse"
+        400:
+          description: "Invalide  query"
+      x-swagger-router-controller: "SearchResultPageSpec"
+  /search/list:
+    post:
+      tags:
+      - "searchresultlist"
       summary: "get search result"
       description: "Api Call to get Search Result"
-      operationId: "searchresult"
+      operationId: "search_list"
       consumes:
       - "application/json"
       produces:
@@ -117,7 +143,7 @@ paths:
             $ref: "#/definitions/LocationResponse"
         400:
           description: "Invalide  query"
-      x-swagger-router-controller: "Location"
+      x-swagger-router-controller: "SearchResultPage"
 definitions:
   GeoDisplay:
     type: "object"
@@ -1354,8 +1380,7 @@ definitions:
           name: "Jakarta"
           locationType: "GEO"
           id: 0
-        query: "Nasi Goreng"
-        filterSpec:
+        filter:
           quick_filter: 
             - "Open Now"
             - "24 Hours"
@@ -1396,11 +1421,8 @@ definitions:
        $ref: "#/definitions/GeoDisplay"
       geoLocation:
         $ref: "#/definitions/GeoLocation"
-      query:
-        type: "string"
-        example: "Nasi Goreng"
-      filterSpec:
-       $ref: "#/definitions/SearchResultFilterSpec"
+      filter:
+       $ref: "#/definitions/SearchResultFilterBase"
       sort:
         type: "string"
         example: "Popularity"
@@ -1418,8 +1440,7 @@ definitions:
         name: "Jakarta"
         locationType: "GEO"
         id: 0
-      query: "Nasi Goreng"
-      filterSpec:
+      filter:
         quick_filter: 
           - "24 Hours"
           - "Open Now"
@@ -1447,7 +1468,7 @@ definitions:
       sort: "Popularity" 
       limit: 20
       skip: 20
-  SearchResultFilterSpec:
+  SearchResultFilterBase:
     type: "object"
     required:
     - "quick_filter"
@@ -1491,3 +1512,144 @@ definitions:
        type: "array"
        items:
           type: "string"
+  SearchResultSpecRequest:        
+    type: "object"
+    required:
+    - "context"
+    properties:
+      context:
+        $ref: "#/definitions/ContextRequest"
+    example:
+      context:
+        session: "session"
+        clientInterface: "clientInterface"
+  SearchResultSpecResponse:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        $ref: "#/definitions/SearchResultSpecData"
+      context:
+        $ref: "#/definitions/ContextResponse"
+  SearchResultSpecData:
+    type: "object"
+    required:
+    - "filter_spec"
+    - "sort_spec"
+    properties:
+      filter_spec:
+        $ref: "#/definitions/SearchResultFilterSpec"
+      sort_spec:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultSortSpec"
+  SearchResultSortSpec:
+    type: "object"
+    required:
+    - "id"
+    - "label"
+    properties:
+      id:
+        type: "string"
+        example: "lowest"
+      label:
+        type: "string"
+        example: "Sort By: Lowest to Highest"
+    example:
+      id: "lowest"
+      label: "Sort By: Lowest to Highest"
+  SearchResultFilterSpec:
+    type: "object"
+    required:
+    - "quick_filter"
+    - "rating"
+    - "price"
+    - "type"
+    - "cuisine"
+    - "dish"
+    - "dietary"
+    - "facility_list"
+    properties:
+      quick_filter:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"
+      rating:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"
+      price:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"   
+      type:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"
+      cuisine:
+        type: "array" 
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"
+      dish:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"
+      dietary:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"
+      facility_list:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"  
+    example:
+      quick_filter:
+      - id: "open"
+        label: "open 24 Hours"
+      rating:
+      - id: "open"
+        label: "open 24 Hours"
+      price:
+      - id: "open"
+        label: "open 24 Hours"
+      type:
+      - id: "open"
+        label: "open 24 Hours"
+      cuisine:
+      - id: "open"
+        label: "open 24 Hours"
+      dish:
+      - id: "open"
+        label: "open 24 Hours"
+      dietary:
+      - id: "open"
+        label: "open 24 Hours"
+      facility_list:
+      - id: "open"
+        label: "open 24 Hours"
+      - id: "open"
+        label: "open 24 Hours"
+        icon: "http://tny.im/jA-"
+  SearchResultFilterItem:
+    type: "object"
+    required:
+    - "id"
+    - "label"
+    properties:
+      id:
+        type: "string"
+        example: "open"
+      label:
+        type: "string"
+        example: "Open Now"
+      icon:
+        type: string
+        example: "http://tny.im/jA-"
+    example:
+      id: "open"
+      label: "Open 24 Hours"
+      icon: "http://tny.im/jA-"
+
+
