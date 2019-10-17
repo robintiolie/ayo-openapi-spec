@@ -95,7 +95,7 @@ paths:
   /search/spec:
     post:
       tags:
-      - "searchresultspec"
+      - "searchresult"
       summary: "get search result page spec"
       description: "Api Call to get Search Result Spec; like filter and sort"
       operationId: "search_spec"
@@ -121,7 +121,7 @@ paths:
   /search/list:
     post:
       tags:
-      - "searchresultlist"
+      - "searchresult"
       summary: "get search result"
       description: "Api Call to get Search Result"
       operationId: "search_list"
@@ -147,7 +147,7 @@ paths:
   /search/further:
     post:
       tags:
-      - "searchresultfurtheraway"
+      - "searchresult"
       summary: "get search result further away result"
       description: "Api Call to get Search Result for Further Away Result"
       operationId: "search_further"
@@ -1407,15 +1407,15 @@ definitions:
           locationType: "GEO"
           id: 0
         filter:
-          quick_filter: 
+          quickFilter: 
             - "Open Now"
             - "24 Hours"
           rating: 
             - "rating"
             - "rating"
           price:
-            - "price"
-            - "price"
+            minPrice: 10000
+            maxPrice: 120000
           type:
             - "type"
             - "type"
@@ -1428,9 +1428,9 @@ definitions:
           dietary:
             - "dietary"
             - "dietary"
-          facility_list:
-            - "facility_list"
-            - "facility_list"
+          facilityList:
+            - "facilityList"
+            - "facilityList"
         sort: "Popularity"
         limit: 20
         skip: 20
@@ -1467,15 +1467,15 @@ definitions:
         locationType: "GEO"
         id: 0
       filter:
-        quick_filter: 
+        quickFilter: 
           - "24 Hours"
           - "Open Now"
         rating: 
           - "3+"
           - "4+"        
         price: 
-          - "Fine Dining"
-          - "Casual Dining"
+          minPrice: 10000
+          maxPrice: 120000
         type: 
           - "Fine Dining"
           - "Casual Dining"
@@ -1488,7 +1488,7 @@ definitions:
         dietary: 
           - "Vegan"
           - "Halal"
-        facility_list: 
+        facilityList: 
           - "Toilet"
           - "Praying Room"
       sort: "Popularity" 
@@ -1497,16 +1497,16 @@ definitions:
   SearchResultFilterBase:
     type: "object"
     required:
-    - "quick_filter"
+    - "quickFilter"
     - "rating"
     - "price"
     - "type"
     - "cuisine"
     - "dish"
     - "dietary"
-    - "facility_list"
+    - "facilityList"
     properties:
-      quick_filter:
+      quickFilter:
        type: "array"
        items:
           type: "string"
@@ -1515,9 +1515,12 @@ definitions:
        items:
           type: "string"
       price:
-       type: "array"
-       items:
-          type: "string"    
+        minPrice:
+          type: "number"
+          example: 10000
+        maxPrice: 
+          type: "number"
+          example: 150000          
       type:
        type: "array"
        items:
@@ -1534,7 +1537,7 @@ definitions:
        type: "array"
        items:
           type: "string"
-      facility_list:
+      facilityList:
        type: "array"
        items:
           type: "string"
@@ -1562,12 +1565,12 @@ definitions:
   SearchResultSpecData:
     type: "object"
     required:
-    - "filter_spec"
-    - "sort_spec"
+    - "filterSpec"
+    - "sortSpec"
     properties:
-      filter_spec:
+      filterSpec:
         $ref: "#/definitions/SearchResultFilterSpec"
-      sort_spec:
+      sortSpec:
         type: "array"
         items:
           $ref: "#/definitions/SearchResultSortSpec"
@@ -1589,16 +1592,16 @@ definitions:
   SearchResultFilterSpec:
     type: "object"
     required:
-    - "quick_filter"
+    - "quickFilter"
     - "rating"
     - "price"
     - "type"
     - "cuisine"
     - "dish"
     - "dietary"
-    - "facility_list"
+    - "facilityList"
     properties:
-      quick_filter:
+      quickFilter:
         type: "array"
         items:
           $ref: "#/definitions/SearchResultFilterItem"
@@ -1607,9 +1610,12 @@ definitions:
         items:
           $ref: "#/definitions/SearchResultFilterItem"
       price:
-        type: "array"
-        items:
-          $ref: "#/definitions/SearchResultFilterItem"   
+        minPrice:
+          type: "number"
+          example: 10000
+        maxPrice: 
+          type: "number"
+          example: 150000   
       type:
         type: "array"
         items:
@@ -1626,20 +1632,20 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/SearchResultFilterItem"
-      facility_list:
+      facilityList:
         type: "array"
         items:
           $ref: "#/definitions/SearchResultFilterItem"  
     example:
-      quick_filter:
+      quickFilter:
       - id: "open"
         label: "open 24 Hours"
       rating:
       - id: "open"
         label: "open 24 Hours"
       price:
-      - id: "open"
-        label: "open 24 Hours"
+        minPrice: 10000
+        maxPrice: 120000
       type:
       - id: "open"
         label: "open 24 Hours"
@@ -1652,7 +1658,7 @@ definitions:
       dietary:
       - id: "open"
         label: "open 24 Hours"
-      facility_list:
+      facilityList:
       - id: "open"
         label: "open 24 Hours"
       - id: "open"
@@ -1690,9 +1696,9 @@ definitions:
   SearchResultDataResponse:
     type: "object"
     required:
-    - "restaurant_list"
+    - "restaurantList"
     properties:
-      restaurant_list:
+      restaurantList:
         type: "array"
         items:
           $ref: "#/definitions/RestaurantCard"
@@ -1700,19 +1706,19 @@ definitions:
     type: "object"
     required:
     - "name"
-    - "main_type"
-    - "main_cuisine"
+    - "mainType"
+    - "mainCuisine"
     - "address"
     properties:
       name:
         type: "string"
-      main_type:
+      mainType:
         type: "string"
-      main_cuisine:
+      mainCuisine:
         type: "string"
-      main_dish:
+      mainDish:
         type: "string"
-      image_list:
+      imageList:
         type: "array"
         items:
           type: "string"
@@ -1725,7 +1731,7 @@ definitions:
         - "TEMPORARY_CLOSED"
         - "COMING_SOON"
         - "PERMANENTLY_CLOSED"
-      open_time:
+      openTime:
         type: "string"
         example: "09.00 - 17.00 (Thu)"
       distance:
@@ -1747,15 +1753,15 @@ definitions:
           - "New"
     example:
       name: "Healthy Kitchen by Julius V"
-      main_type: "Casual Dining"
-      main_cuisine: "Vegetarian"
-      main_dish: "Capcay"
-      image_list:
+      mainType: "Casual Dining"
+      mainCuisine: "Vegetarian"
+      mainDish: "Capcay"
+      imageList:
       - "http://tny.im/jA-"
       - "http://tny.im/jA-"
       - "http://tny.im/jA-"
       status: "OPEN"
-      open_time: "09.00 - 21.00 (Thu)"
+      openTime: "09.00 - 21.00 (Thu)"
       distance: 0.7
       address: "Senopati, Jakarta Selatan"
       menu: 
