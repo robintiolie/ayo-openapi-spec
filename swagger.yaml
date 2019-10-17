@@ -1354,6 +1354,7 @@ definitions:
           name: "Jakarta"
           locationType: "GEO"
           id: 0
+        query: "Nasi Goreng"
         filterSpec:
           quick_filter: 
             - "Open Now"
@@ -1380,6 +1381,8 @@ definitions:
             - "facility_list"
             - "facility_list"
         sort: "Popularity"
+        limit: 20
+        skip: 20
       context:
         session: "session"
         clientInterface: "clientInterface"
@@ -1393,11 +1396,20 @@ definitions:
        $ref: "#/definitions/GeoDisplay"
       geoLocation:
         $ref: "#/definitions/GeoLocation"
+      query:
+        type: "string"
+        example: "Nasi Goreng"
       filterSpec:
        $ref: "#/definitions/SearchResultFilterSpec"
       sort:
         type: "string"
         example: "Popularity"
+      limit:
+        type: "integer"
+        format: "int64"
+      skip:
+        type: "integer"
+        format: "int64"
     example:
       geoLocation:
         lon: 68.4500000000000028421709430404007434844970703125
@@ -1406,6 +1418,7 @@ definitions:
         name: "Jakarta"
         locationType: "GEO"
         id: 0
+      query: "Nasi Goreng"
       filterSpec:
         quick_filter: 
           - "24 Hours"
@@ -1432,6 +1445,8 @@ definitions:
           - "Toilet"
           - "Praying Room"
       sort: "Popularity" 
+      limit: 20
+      skip: 20
   SearchResultFilterSpec:
     type: "object"
     required:
