@@ -117,7 +117,7 @@ paths:
             $ref: "#/definitions/SearchResultSpecResponse"
         400:
           description: "Invalide  query"
-      x-swagger-router-controller: "SearchResultPageSpec"
+      x-swagger-router-controller: "SearchResult"
   /search/list:
     post:
       tags:
@@ -140,10 +140,10 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/LocationResponse"
+            $ref: "#/definitions/SearchResultResponse"
         400:
           description: "Invalide  query"
-      x-swagger-router-controller: "SearchResultPage"
+      x-swagger-router-controller: "SearchResult"
 definitions:
   GeoDisplay:
     type: "object"
@@ -1651,5 +1651,100 @@ definitions:
       id: "open"
       label: "Open 24 Hours"
       icon: "http://tny.im/jA-"
-
-
+  SearchResultResponse:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        $ref: "#/definitions/SearchResultDataResponse"
+      context:
+        $ref: "#/definitions/ContextResponse"
+  SearchResultDataResponse:
+    type: "object"
+    required:
+    - "restaurant_list"
+    properties:
+      restaurant_list:
+        type: "array"
+        items:
+          $ref: "#/definitions/RestaurantCard"
+  RestaurantCard:
+    type: "object"
+    required:
+    - "name"
+    - "main_type"
+    - "main_cuisine"
+    - "address"
+    properties:
+      name:
+        type: "string"
+      main_type:
+        type: "string"
+      main_cuisine:
+        type: "string"
+      main_dish:
+        type: "string"
+      image_list:
+        type: "array"
+        items:
+          type: "string"
+      status:
+        type: "string"
+        example: "PERMANENTLY_CLOSED"
+        enum:
+        - "OPEN"
+        - "CLOSED"
+        - "TEMPORARY_CLOSED"
+        - "COMING_SOON"
+        - "PERMANENTLY_CLOSED"
+      open_time:
+        type: "string"
+        example: "09.00 - 17.00 (Thu)"
+      distance:
+        type: "number"
+        example: 0.7
+      address:
+        type: "string"
+        example: "Plaza Indonesia Mall, Lt 3"
+      menu:
+        type: array
+        items:
+          $ref: "#/definitions/Photo"
+      label:
+        type: "array"
+        items: 
+          type: "string"
+          enum:
+          - "Trending"
+          - "New"
+    example:
+      name: "Healthy Kitchen by Julius V"
+      main_type: "Casual Dining"
+      main_cuisine: "Vegetarian"
+      main_dish: "Capcay"
+      image_list:
+      - "http://tny.im/jA-"
+      - "http://tny.im/jA-"
+      - "http://tny.im/jA-"
+      status: "OPEN"
+      open_time: "09.00 - 21.00 (Thu)"
+      distance: 0.7
+      address: "Senopati, Jakarta Selatan"
+      menu: 
+        - imagerUrl: "http://tny.im/jA-"
+          category: "Menu"
+          mainSubcategory: "Sub Category"
+          subcategories: 
+          - "subcategory 1"
+          - "subcategory 2"
+        - imagerUrl: "http://tny.im/jA-"
+          category: "Menu"
+          mainSubcategory: "Sub Category"
+          subcategories: 
+          - "subcategory 1"
+          - "subcategory 2"    
+      label:
+      - "Trending"
+      - "New" 
