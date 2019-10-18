@@ -804,14 +804,7 @@ definitions:
         example: "http://tny.im/jA-"
       label:
         type: "string"
-        example: "Air Conditioned"
-      sublabels:
-        type: "array"
-        items:
-          type: "string"
-        example: 
-        - "Gojek"
-        - "Grab"
+        example: "Air Conditioned"      
   PaymentMethodDisplay:
     type: "object"
     properties: 
