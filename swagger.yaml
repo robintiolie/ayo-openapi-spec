@@ -92,7 +92,7 @@ paths:
         400:
           description: "Invalide  query"
       x-swagger-router-controller: "Location"
-  /search/spec:
+  /search/availablefilter:
     post:
       tags:
       - "searchresult"
@@ -109,12 +109,12 @@ paths:
         description: ""
         required: true
         schema:
-          $ref: "#/definitions/SearchResultSpecRequest"
+          $ref: "#/definitions/AvailableFilterRequest"
       responses:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/SearchResultSpecResponse"
+            $ref: "#/definitions/AvailableFilterResponse"
         400:
           description: "Invalide  query"
       x-swagger-router-controller: "SearchResult"
@@ -1407,30 +1407,30 @@ definitions:
           locationType: "GEO"
           id: 0
         filter:
-          quickFilter: 
+          quickFilters: 
             - "Open Now"
             - "24 Hours"
-          rating: 
+          ratings: 
             - "rating"
             - "rating"
-          price:
+          prices:
             minPrice: 10000
             maxPrice: 120000
-          type:
+          types:
             - "type"
             - "type"
-          cuisine:
+          cuisines:
             - "cuisine"
             - "cuisine"
-          dish:
+          dishes:
             - "dish"
             - "dish"
-          dietary:
+          dietaries:
             - "dietary"
             - "dietary"
-          facilityList:
-            - "facilityList"
-            - "facilityList"
+          facilites:
+            - "facilites"
+            - "facilites"
         sort: "Popularity"
         limit: 20
         skip: 20
@@ -1467,28 +1467,28 @@ definitions:
         locationType: "GEO"
         id: 0
       filter:
-        quickFilter: 
+        quickFilters: 
           - "24 Hours"
           - "Open Now"
-        rating: 
+        ratings: 
           - "3+"
           - "4+"        
-        price: 
+        prices: 
           minPrice: 10000
           maxPrice: 120000
-        type: 
+        types: 
           - "Fine Dining"
           - "Casual Dining"
-        cuisine: 
+        cuisines: 
           - "Chinese"
           - "Indonesian"
-        dish: 
+        dishes: 
           - "Padang"
           - "Sushi"
-        dietary: 
+        dietaries: 
           - "Vegan"
           - "Halal"
-        facilityList: 
+        facilities: 
           - "Toilet"
           - "Praying Room"
       sort: "Popularity" 
@@ -1497,51 +1497,53 @@ definitions:
   SearchResultFilterBase:
     type: "object"
     required:
-    - "quickFilter"
-    - "rating"
-    - "price"
-    - "type"
-    - "cuisine"
-    - "dish"
-    - "dietary"
-    - "facilityList"
+    - "quickFilters"
+    - "ratings"
+    - "prices"
+    - "types"
+    - "cuisines"
+    - "dishes"
+    - "dietaries"
+    - "facilities"
     properties:
-      quickFilter:
+      quickFilters:
        type: "array"
        items:
           type: "string"
-      rating:
+      ratings:
        type: "array"
        items:
           type: "string"
-      price:
+      prices:
+       type: "object"
+       properties: 
         minPrice:
           type: "number"
           example: 10000
         maxPrice: 
           type: "number"
           example: 150000          
-      type:
+      types:
        type: "array"
        items:
           type: "string"
-      cuisine:
+      cuisines:
        type: "array"
        items:
           type: "string"
-      dish:
+      dishes:
        type: "array"
        items:
           type: "string"
-      dietary:
+      dietaries:
        type: "array"
        items:
           type: "string"
-      facilityList:
+      facilities:
        type: "array"
        items:
           type: "string"
-  SearchResultSpecRequest:        
+  AvailableFilterRequest:        
     type: "object"
     required:
     - "context"
@@ -1552,29 +1554,29 @@ definitions:
       context:
         session: "session"
         clientInterface: "clientInterface"
-  SearchResultSpecResponse:
+  AvailableFilterResponse:
     type: "object"
     required:
     - "context"
     - "data"
     properties:
       data:
-        $ref: "#/definitions/SearchResultSpecData"
+        $ref: "#/definitions/AvailableFilterData"
       context:
         $ref: "#/definitions/ContextResponse"
-  SearchResultSpecData:
+  AvailableFilterData:
     type: "object"
     required:
     - "filterSpec"
     - "sortSpec"
     properties:
       filterSpec:
-        $ref: "#/definitions/SearchResultFilterSpec"
+        $ref: "#/definitions/AvailableFilterSpec"
       sortSpec:
         type: "array"
         items:
-          $ref: "#/definitions/SearchResultSortSpec"
-  SearchResultSortSpec:
+          $ref: "#/definitions/AvailableSortSpec"
+  AvailableSortSpec:
     type: "object"
     required:
     - "id"
@@ -1589,76 +1591,78 @@ definitions:
     example:
       id: "lowest"
       label: "Sort By: Lowest to Highest"
-  SearchResultFilterSpec:
+  AvailableFilterSpec:
     type: "object"
     required:
-    - "quickFilter"
-    - "rating"
-    - "price"
-    - "type"
-    - "cuisine"
-    - "dish"
-    - "dietary"
-    - "facilityList"
+    - "quickFilters"
+    - "ratings"
+    - "prices"
+    - "types"
+    - "cuisines"
+    - "dishes"
+    - "dietaries"
+    - "facilities"
     properties:
-      quickFilter:
+      quickFilters:
         type: "array"
         items:
           $ref: "#/definitions/SearchResultFilterItem"
-      rating:
+      ratings:
         type: "array"
         items:
           $ref: "#/definitions/SearchResultFilterItem"
-      price:
-        minPrice:
-          type: "number"
-          example: 10000
-        maxPrice: 
-          type: "number"
-          example: 150000   
-      type:
+      prices:
+        type: "object"
+        properties:
+          minPrice:
+            type: "number"
+            example: 10000
+          maxPrice: 
+            type: "number"
+            example: 150000   
+      types:
         type: "array"
         items:
           $ref: "#/definitions/SearchResultFilterItem"
-      cuisine:
+      cuisines:
         type: "array" 
         items:
           $ref: "#/definitions/SearchResultFilterItem"
-      dish:
+      dishes:
         type: "array"
         items:
           $ref: "#/definitions/SearchResultFilterItem"
-      dietary:
+      dietaries:
         type: "array"
         items:
           $ref: "#/definitions/SearchResultFilterItem"
-      facilityList:
+      facilities:
         type: "array"
         items:
           $ref: "#/definitions/SearchResultFilterItem"  
     example:
-      quickFilter:
+      quickFilters:
       - id: "open"
         label: "open 24 Hours"
-      rating:
+      ratings:
       - id: "open"
         label: "open 24 Hours"
-      price:
+      prices:
         minPrice: 10000
         maxPrice: 120000
-      type:
+      types:
       - id: "open"
         label: "open 24 Hours"
-      cuisine:
+      cuisines:
       - id: "open"
         label: "open 24 Hours"
-      dish:
+      dishes:
       - id: "open"
         label: "open 24 Hours"
-      dietary:
+      dietaries:
       - id: "open"
         label: "open 24 Hours"
-      facilityList:
+      facilities:
       - id: "open"
         label: "open 24 Hours"
       - id: "open"
