@@ -1709,11 +1709,15 @@ definitions:
   RestaurantCard:
     type: "object"
     required:
+    - "id"
     - "name"
     - "mainType"
     - "mainCuisine"
     - "address"
     properties:
+      id:
+        type: "string"
+        example: "123"
       name:
         type: "string"
       mainType:
