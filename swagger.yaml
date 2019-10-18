@@ -804,15 +804,19 @@ definitions:
         example: "http://tny.im/jA-"
       label:
         type: "string"
-        example: "Air Conditioned"      
+        example: "Air Conditioned" 
+      sublabels: 
+        type: "array"
+        items: 
+          type: "string"     
   PaymentMethodDisplay:
     type: "object"
     properties: 
-      availables:
+      availablePaymentMethods:
         type: "array"
         items:
           $ref: "#/definitions/PaymentMethod"
-      unavailables:
+      unavailablePaymentMethods:
         type: "array"
         items:
           $ref: "#/definitions/PaymentMethod"
@@ -838,11 +842,11 @@ definitions:
   AmenityDisplay:
     type: "object"
     properties: 
-      availables:
+      availableAmenities:
         type: "array"
         items:
           $ref: "#/definitions/Amenity"
-      unavailables:
+      unavailableAmenities:
         type: "array"
         items:
           $ref: "#/definitions/Amenity"
@@ -965,10 +969,12 @@ definitions:
         type: "string"
         example: "PERMANENTLY_CLOSED"
         enum:
-        - "NEW"
+        - "OPEN_NOW"
         - "COMING_SOON"
-        - "TEMP_CLOSED"
+        - "TEMPORARILY_CLOSED"
         - "PERMANENTLY_CLOSED"
+        - "CLOSED_NOW"
+        - "NO_OPEN_HOUR"
       statusLabel:
         type: "string"
         example: "Opening again at 11 dec 2019"
