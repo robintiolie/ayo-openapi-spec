@@ -1035,7 +1035,7 @@ definitions:
       mainDish:
         type: "string"
         example: "Fried Chicken"
-      POIstatus:
+      poiStatus:
         $ref: "#/definitions/POIStatus"
       price:
         $ref: "#/definitions/Price"
@@ -1053,7 +1053,7 @@ definitions:
         type: "array"
         items:
           type: "string"
-      highlightedAmenties:
+      highlightedAmenities:
         type: "array"
         items:
           $ref: "#/definitions/Amenity"
@@ -1080,6 +1080,236 @@ definitions:
       capacity:
         type: "integer"
         example: 100
+    example: 
+      id: "123"
+      name: "Chir Chir fusion Chicken"
+      bestKnownFor:
+        description : "The best Restaurant since xxxx"
+        tags:
+        - imageUrl: "http://tny.im/jA-"
+          label: "Historical Building"
+        - imageUrl: "http://tny.im/jA-"
+          label: "Historical Building"
+      locationInfo:
+        address: "Jalan S Parman Kav 77, Slipi, Jakarta Barat."
+        geoLocation:
+          lon: 68.4500000000000028421709430404007434844970703125
+          lat: 23.449999999999999289457264239899814128875732421875
+        label: "PIK Avenue, 2nd Floor"
+      mainRestaurantType : "Asian"
+      mainCuisine: "Vegetarian"
+      mainDish: "Fried Chicken"
+      poiStatus:
+        statusLabel: "Opening again at 11 dec 2019"
+        status: "PERMANENTLY_CLOSED"
+      price:
+        priceDetail: "price for 1 dish + 1 beverages"
+        priceLabel: "Around Rp 100.000 per person"
+      openHourToday:
+        weekDay: "SUNDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      openHours:
+      - weekDay: "SUNDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      - weekDay: "MONDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      - weekDay: "TUESDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      - weekDay: "WEDNESDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      - weekDay: "THURSDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      - weekDay: "FRIDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      - weekDay: "SATURDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      restaurantTypes:
+        - "Asian"
+        - "Vegetarian"
+      cuisineDishTypes:
+        - "Mie"
+        - "Air Putih"
+      highlightedAmenities:
+      - iconImageUrl: "http://tny.im/jA-"
+        label: "Air Conditioned"
+        subLabels: ["dingin", "adem"]
+      - iconImageUrl: "http://tny.im/jA-"
+        label: "Parking Area"
+      amenityDisplay:
+        availables: 
+        - iconImageUrl: "http://tny.im/jA-"
+          label: "Air Conditioned"
+          subLabels: ["dingin", "adem"]
+        - iconImageUrl: "http://tny.im/jA-"
+          label: "Parking Area"
+        unavailables:
+        - iconImageUrl: "http://tny.im/jA-"
+          label: "Wheel Chair"
+      phoneNumbers:
+      - "14045"
+      - "14022"
+      paymentMethodDisplay:
+        availables:
+        - iconImageUrl: "http://tny.im/jA-"
+          label: "Accept credit card"
+        - iconImageUrl: "http://tny.im/jA-"
+          label: "Accept debit card"
+      restaurantNearbies:
+      - restaurantType: "Western"
+        imageUrl: "http://tny.im/jA-"
+        name: "Bereau Cafe"
+        locationLabel: "Central Park, Slipi"
+        id: "123"
+      - restaurantType: "Western"
+        imageUrl: "http://tny.im/jA-"
+        name: "Bereau Cafe"
+        locationLabel: "Central Park, Slipi"
+        id: "123" 
+      photo:
+          tab: "ALL"
+          photos:
+          - imageUrl: "http://tny.im/jA-"
+            category: "AMBIENCE"
+            mainSubcategory: "Indoor seating"
+            subcategories:
+            - "subcategories"
+            - "subcategories"
+          - imageUrl: "http://tny.im/jA-"
+            category: "AMBIENCE"
+            mainSubcategory: "Indoor seating"
+            subcategories:
+            - "subcategories"
+            - "subcategories"
+      menu:
+          tab: "Menu"
+          photos:
+          - imageUrl: "http://tny.im/jA-"
+            category: "AMBIENCE"
+            mainSubcategory: "Indoor seating"
+            subcategories:
+            - "subcategories"
+            - "subcategories"
+          - imageUrl: "http://tny.im/jA-"
+            category: "AMBIENCE"
+            mainSubcategory: "Indoor seating"
+            subcategories:
+            - "subcategories"
+            - "subcategories"
+      poiPhotosList:
+      - "http://tny.im/jA-"
+      - "http://tny.im/jA-"
   POIRequestData:
     type: "object"
     required:
