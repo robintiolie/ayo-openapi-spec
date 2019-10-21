@@ -92,6 +92,32 @@ paths:
         400:
           description: "Invalide  query"
       x-swagger-router-controller: "Location"
+  /otherlocation:
+    post:
+      tags:
+      - "otherlocation"
+      summary: "get the location"
+      description: ""
+      operationId: "otherlocation"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/LocationRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/LocationResponse"
+        400:
+          description: "Invalide  query"
+      x-swagger-router-controller: "Otherlocation"
 definitions:
   GeoDisplay:
     type: "object"
@@ -1255,6 +1281,8 @@ definitions:
         items:
           type: "object"
           properties:
+            label:
+              type: "string"
             geoDisplay:
               $ref: "#/definitions/GeoDisplay"
   LocationResponse:
@@ -1271,33 +1299,40 @@ definitions:
       data:
         locations:
           - geoDisplay:
-              name: "Jakarta, Indonesia"
+              name: "Jakarta"
               locationType: "GEO"
               id: 1
+            label: "Jakarta, Indonesia"
           - geoDisplay:
               name: "Atma Jaya, Jakarta"
               locationType: "GEO"
               id: 2
+            label: "Atma Jaya, Jakarta"
           - geoDisplay:
-              name: "Wisma 77 Tower 2, Jakarta"
+              name: "Wisma 77 Tower 2"
               locationType: "GEO"
               id: 3
+            label: "Wisma 77 Tower 2, Jakarta"
           - geoDisplay:
               name: "Taman Wisata Jaya Ancol"
               locationType: "GEO"
               id: 4
+            label: "Taman Wisata Jaya Ancol, Jakarta"
           - geoDisplay:
               name: "Ragunan"
               locationType: "GEO"
               id: 5
+            label: "Ragunan, Jakarta"
           - geoDisplay:
-              name: "Gedung Citicon, Slipi"
+              name: "Gedung Citicon"
               locationType: "GEO"
               id: 6
+            label: "Gedung Citicon, Slipi"
           - geoDisplay:
               name: "Menara Peninsula"
               locationType: "GEO"
               id: 7
+            label: "Menara Peninsula, Jakarta"
       context:
         session: "session"
         clientInterface: "clientInterface"
