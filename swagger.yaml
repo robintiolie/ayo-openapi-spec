@@ -109,7 +109,7 @@ paths:
         description: ""
         required: true
         schema:
-          $ref: "#/definitions/LocationRequest"
+          $ref: "#/definitions/OtherLocationRequest"
       responses:
         200:
           description: "successful operation"
@@ -1259,6 +1259,10 @@ definitions:
     example:
       data:
         query: "slipi"
+        geoDisplay:
+          name: "Jakarta"
+          locationType: "GEO"
+          id: 1
       context:
         session: "session"
         clientInterface: "clientInterface"
@@ -1269,8 +1273,14 @@ definitions:
     properties:
       query:
         type: "string"
+      geoDisplay:
+        $ref: "#/definitions/GeoDisplay"
     example:
       query: "123"
+      geoDisplay:
+          name: "Jakarta"
+          locationType: "GEO"
+          id: 1
   LocationRequestData:
     type: "object"
     required:
