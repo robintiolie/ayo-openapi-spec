@@ -1394,46 +1394,6 @@ definitions:
         $ref: "#/definitions/SearchResultRequestData"
       context:
         $ref: "#/definitions/ContextRequest"
-    example:
-      data:
-        geoLocation:
-          lon: 68.4500000000000028421709430404007434844970703125
-          lat: 23.449999999999999289457264239899814128875732421875
-        geoDisplay:
-          name: "Jakarta"
-          locationType: "GEO"
-          id: 0
-        filter:
-          quickFilters: 
-            - "Open Now"
-            - "24 Hours"
-          ratings: 
-            - "rating"
-            - "rating"
-          prices:
-            minPrice: 10000
-            maxPrice: 120000
-          types:
-            - "type"
-            - "type"
-          cuisines:
-            - "cuisine"
-            - "cuisine"
-          dishes:
-            - "dish"
-            - "dish"
-          dietaries:
-            - "dietary"
-            - "dietary"
-          facilites:
-            - "facilites"
-            - "facilites"
-        sort: "Popularity"
-        limit: 20
-        skip: 20
-      context:
-        session: "session"
-        clientInterface: "clientInterface"
   SearchResultRequestData:
     type: "object"
     required: 
@@ -1455,42 +1415,6 @@ definitions:
       skip:
         type: "integer"
         format: "int64"
-    example:
-      geoLocation:
-        lon: 68.4500000000000028421709430404007434844970703125
-        lat: 23.449999999999999289457264239899814128875732421875
-      geoDisplay:
-        name: "Jakarta"
-        locationType: "GEO"
-        id: 0
-      filter:
-        quickFilters: 
-          - "24 Hours"
-          - "Open Now"
-        ratings: 
-          - "3+"
-          - "4+"        
-        prices: 
-          minPrice: 10000
-          maxPrice: 120000
-        types: 
-          - "Fine Dining"
-          - "Casual Dining"
-        cuisines: 
-          - "Chinese"
-          - "Indonesian"
-        dishes: 
-          - "Padang"
-          - "Sushi"
-        dietaries: 
-          - "Vegan"
-          - "Halal"
-        facilities: 
-          - "Toilet"
-          - "Praying Room"
-      sort: "Popularity" 
-      limit: 20
-      skip: 20
   SearchResultFilterBase:
     type: "object"
     required:
