@@ -1246,6 +1246,31 @@ definitions:
       context:
         session: "session"
         clientInterface: "clientInterface"
+  OtherLocationRequest:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        $ref: "#/definitions/OtherLocationRequestData"
+      context:
+        $ref: "#/definitions/ContextRequest"
+    example:
+      data:
+        query: "slipi"
+      context:
+        session: "session"
+        clientInterface: "clientInterface"
+  OtherLocationRequestData:
+    type: "object"
+    required:
+    - "query"
+    properties:
+      query:
+        type: "string"
+    example:
+      query: "123"
   LocationRequestData:
     type: "object"
     required:
