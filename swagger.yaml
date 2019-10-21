@@ -117,7 +117,6 @@ paths:
             $ref: "#/definitions/AvailableFilterResponse"
         400:
           description: "Invalide  query"
-      x-swagger-router-controller: "SearchResult"
   /search/list:
     post:
       tags:
@@ -143,7 +142,6 @@ paths:
             $ref: "#/definitions/SearchResultResponse"
         400:
           description: "Invalide  query"
-      x-swagger-router-controller: "SearchResult"
   /search/further:
     post:
       tags:
@@ -169,7 +167,6 @@ paths:
             $ref: "#/definitions/SearchResultResponse"
         400:
           description: "Invalide  query"
-      x-swagger-router-controller: "SearchResult"
 definitions:
   GeoDisplay:
     type: "object"
@@ -1714,6 +1711,7 @@ definitions:
     - "mainType"
     - "mainCuisine"
     - "address"
+    - "status"
     properties:
       id:
         type: "string"
@@ -1739,6 +1737,7 @@ definitions:
         - "TEMPORARY_CLOSED"
         - "COMING_SOON"
         - "PERMANENTLY_CLOSED"
+        - "NO_OPEN_HOUR"
       openTime:
         type: "string"
         example: "09.00 - 17.00 (Thu)"
