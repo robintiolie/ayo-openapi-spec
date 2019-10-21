@@ -793,63 +793,30 @@ definitions:
         lon: 68.4500000000000028421709430404007434844970703125
         lat: 23.449999999999999289457264239899814128875732421875
       label: "PIK Avenue, 2nd Floor"
-  PaymentMethod:
+  HighlightedAmenity:
     type: "object"
     required:
     - "iconImageUrl"
-    - "label"
+    - "name"
     properties:
       iconImageUrl:
         type: "string"
         example: "http://tny.im/jA-"
-      label:
-        type: "string"
-        example: "Air Conditioned" 
-      sublabels: 
-        type: "array"
-        items: 
-          type: "string"     
-  PaymentMethodDisplay:
-    type: "object"
-    properties: 
-      availablePaymentMethods:
-        type: "array"
-        items:
-          $ref: "#/definitions/PaymentMethod"
-      unavailablePaymentMethods:
-        type: "array"
-        items:
-          $ref: "#/definitions/PaymentMethod"
-  Amenity:
-    type: "object"
-    required:
-    - "iconImageUrl"
-    - "label"
-    properties:
-      iconImageUrl:
-        type: "string"
-        example: "http://tny.im/jA-"
-      label:
+      name:
         type: "string"
         example: "Air Conditioned"
-      sublabels:
-        type: "array"
-        items:
-          type: "string"
-        example: 
-        - "Gojek"
-        - "Grab"
-  AmenityDisplay:
+  BasicInfo:
     type: "object"
     properties: 
-      availableAmenities:
-        type: "array"
-        items:
-          $ref: "#/definitions/Amenity"
-      unavailableAmenities:
-        type: "array"
-        items:
-          $ref: "#/definitions/Amenity"
+      iconImageUrl:
+        type: "string"
+        example: "http://tny.im/jA-"
+      label:
+        type: "string"
+        example: "Capacity: Up to <strong>100</strong> People"
+      available:
+        type: "boolean"
+        example: true
   RestaurantNearby:
     type: "object"
     required:
@@ -1001,7 +968,7 @@ definitions:
     - "cuisineDishTypes"
     - "amenities"
     - "id"
-    - "poiPhotosList"
+    - "poiPhotos"
     - "locationInfo"
     - "mainCuisine"
     - "mainDish"
@@ -1055,16 +1022,16 @@ definitions:
       highlightedAmenities:
         type: "array"
         items:
-          $ref: "#/definitions/Amenity"
-      amenityDisplay:
-        $ref: "#/definitions/AmenityDisplay"
+          $ref: "#/definitions/HighlightedAmenity"
+      amenities:
+        $ref: "#/definitions/BasicInfo"
       phoneNumbers:
         type: "array"
         items:
           type: "string"
-      paymentMethodDisplay:
-        $ref: "#/definitions/PaymentMethodDisplay"
-      restaurantNearbies:
+      paymentMethods:
+        $ref: "#/definitions/BasicInfo"
+      restaurantsNearby:
         type: "array"
         items:
           $ref: "#/definitions/RestaurantNearby"
@@ -1072,7 +1039,7 @@ definitions:
         $ref: "#/definitions/PhotoGroupDisplay"
       menu:
         $ref: "#/definitions/PhotoGroupDisplay"
-      poiPhotosList:
+      poiPhotos:
         type: "array"
         items:
           type: "string"
@@ -1242,30 +1209,24 @@ definitions:
         - "Air Putih"
       highlightedAmenities:
       - iconImageUrl: "http://tny.im/jA-"
-        label: "Air Conditioned"
-        subLabels: ["dingin", "adem"]
+        name: "Air Conditioned"
       - iconImageUrl: "http://tny.im/jA-"
-        label: "Parking Area"
-      amenityDisplay:
-        availables: 
-        - iconImageUrl: "http://tny.im/jA-"
-          label: "Air Conditioned"
-          subLabels: ["dingin", "adem"]
-        - iconImageUrl: "http://tny.im/jA-"
-          label: "Parking Area"
-        unavailables:
-        - iconImageUrl: "http://tny.im/jA-"
-          label: "Wheel Chair"
+        name: "Parking Area"
+      amenities:
+      - iconImageUrl: "http://tny.im/jA-"
+        label: "Capacity: up to <strong>100</strong> people"
+        available: true
       phoneNumbers:
       - "14045"
       - "14022"
-      paymentMethodDisplay:
-        availables:
-        - iconImageUrl: "http://tny.im/jA-"
-          label: "Accept credit card"
-        - iconImageUrl: "http://tny.im/jA-"
-          label: "Accept debit card"
-      restaurantNearbies:
+      paymentMethods:
+      - iconImageUrl: "http://tny.im/jA-"
+        label: "Accept credit card"
+        available: true
+      - iconImageUrl: "http://tny.im/jA-"
+        label: "Accept debit card"
+        available: false
+      restaurantsNearby:
       - restaurantType: "Western"
         imageUrl: "http://tny.im/jA-"
         name: "Bereau Cafe"
@@ -1306,7 +1267,7 @@ definitions:
             subcategories:
             - "subcategories"
             - "subcategories"
-      poiPhotosList:
+      poiPhotos:
       - "http://tny.im/jA-"
       - "http://tny.im/jA-"
   POIRequestData:
