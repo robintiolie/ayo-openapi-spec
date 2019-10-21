@@ -92,6 +92,32 @@ paths:
         400:
           description: "Invalide  query"
       x-swagger-router-controller: "Location"
+  /omnisearch:
+    post:
+      tags:
+      - "omnisearch"
+      summary: "get the omnisearch"
+      description: ""
+      operationId: "omnisearch"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/OmniSearchRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/OmniSearchResponse"
+        400:
+          description: "Invalide  query"
+      x-swagger-router-controller: "Omnisearch"
   /search/availablefilter:
     post:
       tags:
@@ -160,13 +186,13 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/SearchResultRequest"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/SearchResultResponse"
-        400:
-          description: "Invalide  query"
+        responses:
+          200:
+            description: "successful operation"
+            schema:
+              $ref: "#/definitions/SearchResultResponse"
+          400:
+            description: "Invalide  query"
 definitions:
   GeoDisplay:
     type: "object"
@@ -1401,11 +1427,11 @@ definitions:
       - "geoLocation"
     properties:
       geoDisplay: 
-       $ref: "#/definitions/GeoDisplay"
+        $ref: "#/definitions/GeoDisplay"
       geoLocation:
         $ref: "#/definitions/GeoLocation"
       filter:
-       $ref: "#/definitions/SearchResultFilterBase"
+        $ref: "#/definitions/SearchResultFilterBase"
       sort:
         type: "string"
         example: "Popularity"
@@ -1711,3 +1737,120 @@ definitions:
       label:
       - "Trending"
       - "New" 
+  OmniSearchRequest:
+    type: "object"
+    properties:
+      query:
+        type: "string"
+        example: "boba"
+      omniSearchTypes:
+        type: "array"
+        items:
+          type: "string"
+      context:
+        $ref: "#/definitions/ContextRequest"
+    example:
+      data:
+        omniSearchTypes:
+        - "DISH"
+        - "CUISINE"
+        - "RESTAURANT_CHAIN"
+        - "RESTAURANT"
+        - "LOCATION"
+        - "RESTAURANT_TYPE"
+        query: "blahhh blahh"
+      context:
+        session: "session"
+        clientInterface: "clientInterface"
+  OmniSearchResponseItem:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+      subtitle:
+        type: "string"
+      iconUrl:
+        type: "string"
+        example: "https://img.qraved.co/v2/journal/wp-content/uploads/2015/02/esh-567x400-l.jpg"
+      omniSearchType:
+        type: "string"
+        example: "RESTAURANT"
+        enum:
+        - "RESTAURANT"
+        - "DISH"
+        - "CUISINE"
+        - "RESTAURANT_CHAIN"
+        - "LOCATION"
+      actionType:
+        type: "string"
+        example: "RESTAURANT"
+        enum:
+        - "SEARCH_RESULT"
+        - "RESTAURANT"
+        - "RESTAURANT_CHAIN"
+        - "SEARCH_TEXT"
+        - "SEARCH_RESULT_NEARBY"
+        - "DEEPLINK"
+        - "LANDING"
+      restaurantId:
+        type: "string"
+        example: "221"
+      searchSpec:
+        type: "object"
+        properties:
+          geoDisplay:
+            $ref: "#/definitions/GeoDisplay"
+          filter:
+            $ref: "#/definitions/SearchResultFilterBase"
+      chainId:
+        type: "string"
+        example: "223"    
+  OmniSearchResponse:
+    type: "object"
+    properties:
+      results:
+        type: "array"
+        items:
+          $ref: "#/definitions/OmniSearchResponseItem"
+      context:
+        $ref: "#/definitions/ContextRequest"
+    example:
+      results:
+      - title: "Gandaria City, Jakarta"
+        omniSearchType: "LOCATION"
+        searchSpec:
+          geoDisplay:
+            name: "Gandaria City"
+            locationType: "GEO"
+            id: 23
+      - title: "RM Makan Padang"
+        subtitle: "53 OUTLETS JAKARTA BARAT"
+        iconUrl: "https://www.gadjian.com/blog/wp-content/uploads/2018/01/Intip-Kesuksesan-Restoran-Padang-dengan-Sistem-Perjanjian-Kerja-Bagi-Hasil.jpg"
+        omniSearchType: "RESTAURANT_CHAIN"
+        chainId: "2431"
+      - title: "Padang"
+        subtitle: "Cuisine"
+        omniSearchType: "CUISINE"
+        searchSpec:
+          filter:
+            cuisine:
+            - "CHINESE"
+            - "WESTERN"
+      - title: "Padang"
+        subtitle: "sa-Dish"
+        omniSearchType: "DISH"
+        searchSpec:
+          filter:
+            dish:
+            - "PIZZA"
+            - "BURGER"
+      - title: "Kopi Kenangan"
+        subtitle: "Restaurant - Minuman"
+        iconUrl: "https://awsimages.detik.net.id/community/media/visual/2019/06/25/4b2e9e97-a47e-49d3-8e20-26074032b26f_11.jpeg?w=700&q=80"
+        omniSearchType: "RESTAURANT"
+        restaurantId: "223"
+      - title: "KFC Tanjung Duren"
+        subtitle: "Restaurant - Tanjung Duren"
+        iconUrl: "https://pbs.twimg.com/profile_images/3750210155/facf7e0f57bc8e7712f36b9a4e7d8bba_400x400.jpeg"
+        omniSearchType: "RESTAURANT"
+        restaurantId: "726"
