@@ -1410,6 +1410,27 @@ definitions:
       context:
         session: "session"
         clientInterface: "clientInterface"
+  MultiCurrencyValue:
+    type: "object"
+    required:
+    - "currency"
+    - "amount"
+    - "numOfDecimalPoint"
+    properties:
+      currency:
+        type: "string"
+        example: "IDR"
+      amount:
+        type: "number"
+        example: 100000
+      numOfDecimalPoint:
+        type: "integer"
+        format: "int64"
+        example: "3"
+    example:
+      currency: "IDR"
+      amount: 100000
+      numOfDecimalPoint: 0
   SearchResultRequest:
     type: "object"
     required:
@@ -1465,11 +1486,9 @@ definitions:
        type: "object"
        properties: 
         minPrice:
-          type: "number"
-          example: 10000
+          $ref: "#/definitions/MultiCurrencyValue"
         maxPrice: 
-          type: "number"
-          example: 150000          
+          $ref: "#/definitions/MultiCurrencyValue"        
       types:
        type: "array"
        items:
@@ -1562,11 +1581,9 @@ definitions:
         type: "object"
         properties:
           minPrice:
-            type: "number"
-            example: 10000
+            $ref: "#/definitions/MultiCurrencyValue"
           maxPrice: 
-            type: "number"
-            example: 150000   
+            $ref: "#/definitions/MultiCurrencyValue"
       types:
         type: "array"
         items:
@@ -1587,34 +1604,6 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/SearchResultFilterItem"  
-    example:
-      quickFilters:
-      - id: "open"
-        label: "open 24 Hours"
-      ratings:
-      - id: "open"
-        label: "open 24 Hours"
-      prices:
-        minPrice: 10000
-        maxPrice: 120000
-      types:
-      - id: "open"
-        label: "open 24 Hours"
-      cuisines:
-      - id: "open"
-        label: "open 24 Hours"
-      dishes:
-      - id: "open"
-        label: "open 24 Hours"
-      dietaries:
-      - id: "open"
-        label: "open 24 Hours"
-      facilities:
-      - id: "open"
-        label: "open 24 Hours"
-      - id: "open"
-        label: "open 24 Hours"
-        icon: "http://tny.im/jA-"
   SearchResultFilterItem:
     type: "object"
     required:
