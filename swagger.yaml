@@ -118,6 +118,81 @@ paths:
         400:
           description: "Invalide  query"
       x-swagger-router-controller: "Omnisearch"
+  /search/availablefilter:
+    post:
+      tags:
+      - "searchresult"
+      summary: "get search result page spec"
+      description: "Api Call to get Search Result Spec; like filter and sort"
+      operationId: "search_spec"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/AvailableFilterRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/AvailableFilterResponse"
+        400:
+          description: "Invalide  query"
+  /search/list:
+    post:
+      tags:
+      - "searchresult"
+      summary: "get search result"
+      description: "Api Call to get Search Result"
+      operationId: "search_list"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/SearchResultRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/SearchResultResponse"
+        400:
+          description: "Invalide  query"
+  /search/further:
+    post:
+      tags:
+      - "searchresult"
+      summary: "get search result further away result"
+      description: "Api Call to get Search Result for Further Away Result"
+      operationId: "search_further"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/SearchResultRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/SearchResultResponse"
+        400:
+          description: "Invalide  query"
 definitions:
   GeoDisplay:
     type: "object"
@@ -842,55 +917,6 @@ definitions:
     example:
       statusLabel: "Opening again at 11 dec 2019"
       status: "PERMANENTLY_CLOSED"
-  SearchResultFilterBase:
-    type: "object"
-    required:
-    - "quickFilter"
-    - "rating"
-    - "price"
-    - "type"
-    - "cuisine"
-    - "dish"
-    - "dietary"
-    - "facilityList"
-    properties:
-      quickFilter:
-        type: "array"
-        items:
-          type: "string"
-      rating:
-        type: "array"
-        items:
-          type: "string"
-      price:
-        type: "object"
-        properties:
-          minPrice:
-            type: "number"
-            example: 10000
-          maxPrice: 
-            type: "number"
-            example: 150000          
-      type:
-        type: "array"
-        items:
-          type: "string"
-      cuisine:
-        type: "array"
-        items:
-          type: "string"
-      dish:
-        type: "array"
-        items:
-          type: "string"
-      dietary:
-        type: "array"
-        items:
-          type: "string"
-      facilityList:
-        type: "array"
-        items:
-          type: "string"
   Price:
     type: "object"
     required:
@@ -1384,22 +1410,332 @@ definitions:
       context:
         session: "session"
         clientInterface: "clientInterface"
-  OmniSearchRequest:
+  MultiCurrencyValue:
+    type: "object"
+    required:
+    - "currency"
+    - "amount"
+    - "numOfDecimalPoint"
+    properties:
+      currency:
+        type: "string"
+        example: "IDR"
+      amount:
+        type: "number"
+        example: 100000
+      numOfDecimalPoint:
+        type: "integer"
+        format: "int64"
+        example: "3"
+    example:
+      currency: "IDR"
+      amount: 100000
+      numOfDecimalPoint: 0
+  SearchResultRequest:
     type: "object"
     required:
     - "context"
     - "data"
     properties:
       data:
+        $ref: "#/definitions/SearchResultRequestData"
+      context:
+        $ref: "#/definitions/ContextRequest"
+  SearchResultRequestData:
+    type: "object"
+    required: 
+      - "geoDisplay"
+      - "geoLocation"
+    properties:
+      geoDisplay: 
+        $ref: "#/definitions/GeoDisplay"
+      geoLocation:
+        $ref: "#/definitions/GeoLocation"
+      filter:
+        $ref: "#/definitions/SearchResultFilterBase"
+      sort:
+        type: "string"
+        example: "Popularity"
+      limit:
+        type: "integer"
+        format: "int64"
+      skip:
+        type: "integer"
+        format: "int64"
+  SearchResultFilterBase:
+    type: "object"
+    required:
+    - "quickFilters"
+    - "ratings"
+    - "prices"
+    - "types"
+    - "cuisines"
+    - "dishes"
+    - "dietaries"
+    - "facilities"
+    properties:
+      quickFilters:
+       type: "array"
+       items:
+          type: "string"
+      ratings:
+       type: "array"
+       items:
+          type: "string"
+      prices:
+       type: "object"
+       properties: 
+        minPrice:
+          $ref: "#/definitions/MultiCurrencyValue"
+        maxPrice: 
+          $ref: "#/definitions/MultiCurrencyValue"        
+      types:
+       type: "array"
+       items:
+          type: "string"
+      cuisines:
+       type: "array"
+       items:
+          type: "string"
+      dishes:
+       type: "array"
+       items:
+          type: "string"
+      dietaries:
+       type: "array"
+       items:
+          type: "string"
+      facilities:
+       type: "array"
+       items:
+          type: "string"
+  AvailableFilterRequest:        
+    type: "object"
+    required:
+    - "context"
+    properties:
+      context:
+        $ref: "#/definitions/ContextRequest"
+    example:
+      context:
+        session: "session"
+        clientInterface: "clientInterface"
+  AvailableFilterResponse:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        $ref: "#/definitions/AvailableFilterData"
+      context:
+        $ref: "#/definitions/ContextResponse"
+  AvailableFilterData:
+    type: "object"
+    required:
+    - "filterSpec"
+    - "sortSpec"
+    properties:
+      filterSpec:
+        $ref: "#/definitions/AvailableFilterSpec"
+      sortSpec:
+        type: "array"
+        items:
+          $ref: "#/definitions/AvailableSortSpec"
+  AvailableSortSpec:
+    type: "object"
+    required:
+    - "id"
+    - "label"
+    properties:
+      id:
+        type: "string"
+        example: "lowest"
+      label:
+        type: "string"
+        example: "Sort By: Lowest to Highest"
+    example:
+      id: "lowest"
+      label: "Sort By: Lowest to Highest"
+  AvailableFilterSpec:
+    type: "object"
+    required:
+    - "quickFilters"
+    - "ratings"
+    - "prices"
+    - "types"
+    - "cuisines"
+    - "dishes"
+    - "dietaries"
+    - "facilities"
+    properties:
+      quickFilters:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"
+      ratings:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"
+      prices:
         type: "object"
         properties:
-          query:
-            type: "string"
-            example: "boba"
-          omniSearchTypes:
-            type: "array"
-            items:
-              type: "string"
+          minPrice:
+            $ref: "#/definitions/MultiCurrencyValue"
+          maxPrice: 
+            $ref: "#/definitions/MultiCurrencyValue"
+      types:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"
+      cuisines:
+        type: "array" 
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"
+      dishes:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"
+      dietaries:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"
+      facilities:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchResultFilterItem"  
+  SearchResultFilterItem:
+    type: "object"
+    required:
+    - "id"
+    - "label"
+    properties:
+      id:
+        type: "string"
+        example: "open"
+      label:
+        type: "string"
+        example: "Open Now"
+      icon:
+        type: string
+        example: "http://tny.im/jA-"
+    example:
+      id: "open"
+      label: "Open 24 Hours"
+      icon: "http://tny.im/jA-"
+  SearchResultResponse:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        $ref: "#/definitions/SearchResultDataResponse"
+      context:
+        $ref: "#/definitions/ContextResponse"
+  SearchResultDataResponse:
+    type: "object"
+    required:
+    - "restaurantList"
+    properties:
+      restaurantList:
+        type: "array"
+        items:
+          $ref: "#/definitions/RestaurantCard"
+  RestaurantCard:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    - "mainType"
+    - "mainCuisine"
+    - "address"
+    - "status"
+    properties:
+      id:
+        type: "string"
+        example: "123"
+      name:
+        type: "string"
+      mainType:
+        type: "string"
+      mainCuisine:
+        type: "string"
+      mainDish:
+        type: "string"
+      imageList:
+        type: "array"
+        items:
+          type: "string"
+      status:
+        type: "string"
+        example: "PERMANENTLY_CLOSED"
+        enum:
+        - "OPEN"
+        - "CLOSED"
+        - "TEMPORARY_CLOSED"
+        - "COMING_SOON"
+        - "PERMANENTLY_CLOSED"
+        - "NO_OPEN_HOUR"
+      openTime:
+        type: "string"
+        example: "09.00 - 17.00 (Thu)"
+      distance:
+        type: "number"
+        example: 0.7
+      address:
+        type: "string"
+        example: "Plaza Indonesia Mall, Lt 3"
+      menu:
+        type: array
+        items:
+          $ref: "#/definitions/Photo"
+      label:
+        type: "array"
+        items: 
+          type: "string"
+          enum:
+          - "Trending"
+          - "New"
+    example:
+      name: "Healthy Kitchen by Julius V"
+      mainType: "Casual Dining"
+      mainCuisine: "Vegetarian"
+      mainDish: "Capcay"
+      imageList:
+      - "http://tny.im/jA-"
+      - "http://tny.im/jA-"
+      - "http://tny.im/jA-"
+      status: "OPEN"
+      openTime: "09.00 - 21.00 (Thu)"
+      distance: 0.7
+      address: "Senopati, Jakarta Selatan"
+      menu: 
+        - imagerUrl: "http://tny.im/jA-"
+          category: "Menu"
+          mainSubcategory: "Sub Category"
+          subcategories: 
+          - "subcategory 1"
+          - "subcategory 2"
+        - imagerUrl: "http://tny.im/jA-"
+          category: "Menu"
+          mainSubcategory: "Sub Category"
+          subcategories: 
+          - "subcategory 1"
+          - "subcategory 2"    
+      label:
+      - "Trending"
+      - "New" 
+  OmniSearchRequest:
+    type: "object"
+    properties:
+      query:
+        type: "string"
+        example: "boba"
+      omniSearchTypes:
+        type: "array"
+        items:
+          type: "string"
       context:
         $ref: "#/definitions/ContextRequest"
     example:
@@ -1457,20 +1793,14 @@ definitions:
             $ref: "#/definitions/SearchResultFilterBase"
       chainId:
         type: "string"
-        example: "223"
+        example: "223"    
   OmniSearchResponse:
     type: "object"
-    required:
-    - "context"
-    - "data"
     properties:
-      data:
-        type: "object"
-        properties:
-          results:
-            type: "array"
-            items:
-              $ref: "#/definitions/OmniSearchResponseItem"
+      results:
+        type: "array"
+        items:
+          $ref: "#/definitions/OmniSearchResponseItem"
       context:
         $ref: "#/definitions/ContextRequest"
     example:
@@ -1513,4 +1843,3 @@ definitions:
         iconUrl: "https://pbs.twimg.com/profile_images/3750210155/facf7e0f57bc8e7712f36b9a4e7d8bba_400x400.jpeg"
         omniSearchType: "RESTAURANT"
         restaurantId: "726"
-
