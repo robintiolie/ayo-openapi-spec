@@ -35,7 +35,7 @@ paths:
       responses:
         200:
           description: "successful operation"
-          schema:
+          schema
             $ref: "#/definitions/HomepageResponse"
         400:
           description: "Invalid geo"
@@ -1042,7 +1042,7 @@ definitions:
       poiPhotos:
         type: "array"
         items:
-          type: "string"
+          $ref: "#/definitions/Photo"
       capacity:
         type: "integer"
         example: 100
@@ -1268,8 +1268,18 @@ definitions:
             - "subcategories"
             - "subcategories"
       poiPhotos:
-      - "http://tny.im/jA-"
-      - "http://tny.im/jA-"
+      - imageUrl: "http://tny.im/jA-"
+        category: "AMBIENCE"
+        mainSubcategory: "Indoor seating"
+        subcategories:
+        - "subcategories"
+        - "subcategories"
+      - imageUrl: "http://tny.im/jA-"
+        category: "AMBIENCE"
+        mainSubcategory: "Indoor seating"
+        subcategories:
+        - "subcategories"
+        - "subcategories"
   POIRequestData:
     type: "object"
     required:
