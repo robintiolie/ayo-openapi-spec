@@ -193,6 +193,31 @@ paths:
             $ref: "#/definitions/SearchResultResponse"
         400:
           description: "Invalide  query"
+  /gallery:
+    post:
+      tags:
+      - "gallery"
+      summary: "get photo gallery"
+      description: "Get All Photos and its component in certain restaurants"
+      operationId: "gallery"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/GalleryRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/GalleryResponse"
+        400:
+          description: "Invalide  query"
 definitions:
   GeoDisplay:
     type: "object"
@@ -1616,13 +1641,9 @@ definitions:
       label:
         type: "string"
         example: "Open Now"
-      icon:
-        type: string
-        example: "http://tny.im/jA-"
     example:
       id: "open"
       label: "Open 24 Hours"
-      icon: "http://tny.im/jA-"
   SearchResultResponse:
     type: "object"
     required:
@@ -1843,3 +1864,112 @@ definitions:
         iconUrl: "https://pbs.twimg.com/profile_images/3750210155/facf7e0f57bc8e7712f36b9a4e7d8bba_400x400.jpeg"
         omniSearchType: "RESTAURANT"
         restaurantId: "726"
+  GalleryRequest:
+    type: "object"
+    properties: 
+      data: 
+        $ref: "#/definitions/GalleryRequestData"
+      context:
+        $ref: "#/definitions/ContextRequest"
+  GalleryRequestData:
+    type: "object"
+    required:
+    - "restaurantId"
+    properties:
+      restaurantId:
+        type: "string"
+        example: "123"
+    example: 
+      restaurantId: "123"
+  GalleryResponse:
+    type: "object"
+    required: 
+    - "context"
+    - "data"
+    properties:
+      data:
+        type: "object"
+        properties:
+          restaurantName:
+            type: "string"
+            example: "Chir Chir Korean Fusion Chicken"
+          highlightedLocation:
+            type: "string"
+            example: "PIK Jakarta"
+          galleryItems:
+            type: "array"
+            items: 
+              $ref: "#/definitions/GalleryItem"
+      context:
+        $ref: "#/definitions/ContextResponse"    
+    example:
+      data:
+        restaurantName: "Chir Chir Korean Fusion Chicken"
+        highlightedLocation: "PIK Jakarta"
+        galleryItems:
+        - category: "Food"
+          subCategories: 
+          - "Chicken Wings"
+          - "Toppoki"
+          - "Cheese"
+          photoList:
+          - imageUrl: "http://tny.im/jA-"
+            category: "Food"
+            mainSubcategory: "Chicken Wings"
+            subcategories:
+            - "Toppoki"
+            - "Cheese"
+        - category: "Ambience"
+          subCategories: 
+          - "Indoor"
+          - "Outer"
+          - "Inside"
+          photoList:
+          - imageUrl: "http://tny.im/jA-"
+            category: "Indoor"
+            mainSubcategory: "Indoor"
+            subcategories:
+            - "Indoor"
+            - "Indoor"
+          - imageUrl: "http://tny.im/jA-"
+            category: "Outer"
+            mainSubcategory: "Outer"
+            subcategories:
+            - "Outer"
+            - "Outer"
+  GalleryItem: 
+    type: "object"
+    required:
+    - "category"
+    - "photoList"
+    properties:
+      category:
+        type: "string"
+        example: "FOOD"
+      subCategories:
+        type: "array"
+        items:
+          type: "string"
+      photoList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Photo"
+    example:
+      category: "Food"
+      subCategories: 
+      - "Chicken Wings"
+      - "Toppoki"
+      - "Cheese"
+      photoList:
+      - imageUrl: "http://tny.im/jA-"
+        category: "Food"
+        mainSubcategory: "Chicken Wings"
+        subcategories:
+        - "Toppoki"
+        - "Cheese"
+      - imageUrl: "http://tny.im/jA-"
+        category: "Food"
+        mainSubcategory: "Chicken Wings"
+        subcategories:
+        - "Toppoki"
+        - "Cheese"
