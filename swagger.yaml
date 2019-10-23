@@ -35,7 +35,7 @@ paths:
       responses:
         200:
           description: "successful operation"
-          schema:
+          schema
             $ref: "#/definitions/HomepageResponse"
         400:
           description: "Invalid geo"
@@ -793,26 +793,30 @@ definitions:
         lon: 68.4500000000000028421709430404007434844970703125
         lat: 23.449999999999999289457264239899814128875732421875
       label: "PIK Avenue, 2nd Floor"
-  FeatureFacility:
+  HighlightedAmenity:
     type: "object"
     required:
-    - "available"
     - "iconImageUrl"
-    - "label"
+    - "name"
     properties:
+      iconImageUrl:
+        type: "string"
+        example: "http://tny.im/jA-"
+      name:
+        type: "string"
+        example: "Air Conditioned"
+  BasicInfo:
+    type: "object"
+    properties: 
       iconImageUrl:
         type: "string"
         example: "http://tny.im/jA-"
       label:
         type: "string"
-        example: "Air Conditioned"
+        example: "Capacity: Up to <strong>100</strong> People"
       available:
         type: "boolean"
         example: true
-    example:
-      iconImageUrl: "http://tny.im/jA-"
-      available: true
-      label: "Air Conditioned"
   RestaurantNearby:
     type: "object"
     required:
@@ -932,10 +936,12 @@ definitions:
         type: "string"
         example: "PERMANENTLY_CLOSED"
         enum:
-        - "NEW"
+        - "OPEN_NOW"
         - "COMING_SOON"
-        - "TEMP_CLOSED"
+        - "TEMPORARILY_CLOSED"
         - "PERMANENTLY_CLOSED"
+        - "CLOSED_NOW"
+        - "NO_OPEN_HOUR"
       statusLabel:
         type: "string"
         example: "Opening again at 11 dec 2019"
@@ -960,9 +966,9 @@ definitions:
     type: "object"
     required:
     - "cuisineDishTypes"
-    - "featureFacilities"
+    - "amenities"
     - "id"
-    - "poiPhotosList"
+    - "poiPhotos"
     - "locationInfo"
     - "mainCuisine"
     - "mainDish"
@@ -995,7 +1001,7 @@ definitions:
       mainDish:
         type: "string"
         example: "Fried Chicken"
-      POIstatus:
+      poiStatus:
         $ref: "#/definitions/POIStatus"
       price:
         $ref: "#/definitions/Price"
@@ -1013,23 +1019,19 @@ definitions:
         type: "array"
         items:
           type: "string"
-      highlightedFeatureFacilities:
+      highlightedAmenities:
         type: "array"
         items:
-          $ref: "#/definitions/FeatureFacility"
-      featureFacilities:
-        type: "array"
-        items:
-          $ref: "#/definitions/FeatureFacility"
+          $ref: "#/definitions/HighlightedAmenity"
+      amenities:
+        $ref: "#/definitions/BasicInfo"
       phoneNumbers:
         type: "array"
         items:
           type: "string"
       paymentMethods:
-        type: "array"
-        items:
-          $ref: "#/definitions/FeatureFacility"
-      restaurantNearbies:
+        $ref: "#/definitions/BasicInfo"
+      restaurantsNearby:
         type: "array"
         items:
           $ref: "#/definitions/RestaurantNearby"
@@ -1037,50 +1039,18 @@ definitions:
         $ref: "#/definitions/PhotoGroupDisplay"
       menu:
         $ref: "#/definitions/PhotoGroupDisplay"
-      poiPhotosList:
+      poiPhotos:
         type: "array"
         items:
-          type: "string"
-    example:
-      openHours:
-      - weekDay: "SUNDAY"
-        operationHours:
-        - closeTime:
-            hour: 7
-            minutes: 0
-          openTime:
-            hour: 7
-            minutes: 0
-        - closeTime:
-            hour: 7
-            minutes: 0
-          openTime:
-            hour: 7
-            minutes: 0
-        isToday: false
-        closed: false
-      - weekDay: "SUNDAY"
-        operationHours:
-        - closeTime:
-            hour: 7
-            minutes: 0
-          openTime:
-            hour: 7
-            minutes: 0
-        - closeTime:
-            hour: 7
-            minutes: 0
-          openTime:
-            hour: 7
-            minutes: 0
-        isToday: false
-        closed: false
+          $ref: "#/definitions/Photo"
+      capacity:
+        type: "integer"
+        example: 100
+    example: 
+      id: "123"
+      name: "Chir Chir fusion Chicken"
       bestKnownFor:
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas\
-          \ eu eros ac massa interdum mattis. Integer feugiat tortor sit amet ligula\
-          \ sodales, vel mollis sem laoreet. Pellentesque quis nibh vitae risus gravida\
-          \ cursus. Maecenas congue dictum consectetur. Fusce in nibh ut mi consectetur\
-          \ pretium. "
+        description : "The best Restaurant since xxxx"
         tags:
         - imageUrl: "http://tny.im/jA-"
           label: "Historical Building"
@@ -1092,52 +1062,15 @@ definitions:
           lon: 68.4500000000000028421709430404007434844970703125
           lat: 23.449999999999999289457264239899814128875732421875
         label: "PIK Avenue, 2nd Floor"
-      restaurantNearbies:
-      - restaurantType: "Western"
-        imageUrl: "http://tny.im/jA-"
-        name: "Bereau Cafe"
-        locationLabel: "Central Park, Slipi"
-        id: "123"
-      - restaurantType: "Western"
-        imageUrl: "http://tny.im/jA-"
-        name: "Bereau Cafe"
-        locationLabel: "Central Park, Slipi"
-        id: "123"
-      mainCuisine: "Korean"
-      POIstatus:
+      mainRestaurantType : "Asian"
+      mainCuisine: "Vegetarian"
+      mainDish: "Fried Chicken"
+      poiStatus:
         statusLabel: "Opening again at 11 dec 2019"
         status: "PERMANENTLY_CLOSED"
-      mainDish: "Fried Chicken"
-      mainRestaurantType: "Casual Dining"
-
-      phoneNumbers:
-      - "phoneNumbers"
-      - "phoneNumbers"
-      restaurantTypes:
-      - "restaurantTypes"
-      - "restaurantTypes"
-      poiPhotosList:
-      - "imageUrlList"
-      - "imageUrlList"
-      featureFacilities:
-      - iconImageUrl: "http://tny.im/jA-"
-        available: true
-        label: "Air Conditioned"
-      - iconImageUrl: "http://tny.im/jA-"
-        available: true
-        label: "Air Conditioned"
       price:
         priceDetail: "price for 1 dish + 1 beverages"
         priceLabel: "Around Rp 100.000 per person"
-      paymentMethods:
-      - iconImageUrl: "http://tny.im/jA-"
-        available: true
-        label: "Air Conditioned"
-      - iconImageUrl: "http://tny.im/jA-"
-        available: true
-        label: "Air Conditioned"
-      name: "Chir Chir fusion Chicken"
-      id: "123"
       openHourToday:
         weekDay: "SUNDAY"
         operationHours:
@@ -1155,13 +1088,198 @@ definitions:
             minutes: 0
         isToday: false
         closed: false
-      highlightedFeatureFacilities:
+      openHours:
+      - weekDay: "SUNDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      - weekDay: "MONDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      - weekDay: "TUESDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      - weekDay: "WEDNESDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      - weekDay: "THURSDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      - weekDay: "FRIDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      - weekDay: "SATURDAY"
+        operationHours:
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        - closeTime:
+            hour: 7
+            minutes: 0
+          openTime:
+            hour: 7
+            minutes: 0
+        isToday: false
+        closed: false
+      restaurantTypes:
+        - "Asian"
+        - "Vegetarian"
+      cuisineDishTypes:
+        - "Mie"
+        - "Air Putih"
+      highlightedAmenities:
       - iconImageUrl: "http://tny.im/jA-"
-        available: true
-        label: "Air Conditioned"
+        name: "Air Conditioned"
       - iconImageUrl: "http://tny.im/jA-"
+        name: "Parking Area"
+      amenities:
+      - iconImageUrl: "http://tny.im/jA-"
+        label: "Capacity: up to <strong>100</strong> people"
         available: true
-        label: "Air Conditioned"
+      phoneNumbers:
+      - "14045"
+      - "14022"
+      paymentMethods:
+      - iconImageUrl: "http://tny.im/jA-"
+        label: "Accept credit card"
+        available: true
+      - iconImageUrl: "http://tny.im/jA-"
+        label: "Accept debit card"
+        available: false
+      restaurantsNearby:
+      - restaurantType: "Western"
+        imageUrl: "http://tny.im/jA-"
+        name: "Bereau Cafe"
+        locationLabel: "Central Park, Slipi"
+        id: "123"
+      - restaurantType: "Western"
+        imageUrl: "http://tny.im/jA-"
+        name: "Bereau Cafe"
+        locationLabel: "Central Park, Slipi"
+        id: "123" 
+      photo:
+          tab: "ALL"
+          photos:
+          - imageUrl: "http://tny.im/jA-"
+            category: "AMBIENCE"
+            mainSubcategory: "Indoor seating"
+            subcategories:
+            - "subcategories"
+            - "subcategories"
+          - imageUrl: "http://tny.im/jA-"
+            category: "AMBIENCE"
+            mainSubcategory: "Indoor seating"
+            subcategories:
+            - "subcategories"
+            - "subcategories"
+      menu:
+          tab: "Menu"
+          photos:
+          - imageUrl: "http://tny.im/jA-"
+            category: "AMBIENCE"
+            mainSubcategory: "Indoor seating"
+            subcategories:
+            - "subcategories"
+            - "subcategories"
+          - imageUrl: "http://tny.im/jA-"
+            category: "AMBIENCE"
+            mainSubcategory: "Indoor seating"
+            subcategories:
+            - "subcategories"
+            - "subcategories"
+      poiPhotos:
+      - imageUrl: "http://tny.im/jA-"
+        category: "AMBIENCE"
+        mainSubcategory: "Indoor seating"
+        subcategories:
+        - "subcategories"
+        - "subcategories"
+      - imageUrl: "http://tny.im/jA-"
+        category: "AMBIENCE"
+        mainSubcategory: "Indoor seating"
+        subcategories:
+        - "subcategories"
+        - "subcategories"
   POIRequestData:
     type: "object"
     required:
@@ -1182,162 +1300,6 @@ definitions:
         $ref: "#/definitions/POIResponseData"
       context:
         $ref: "#/definitions/ContextResponse"
-    example:
-      data:
-        openHours:
-        - weekDay: "SUNDAY"
-          operationHours:
-          - closeTime:
-              hour: 7
-              minutes: 0
-            openTime:
-              hour: 7
-              minutes: 0
-          - closeTime:
-              hour: 7
-              minutes: 0
-            openTime:
-              hour: 7
-              minutes: 0
-          isToday: false
-          closed: false
-        - weekDay: "SUNDAY"
-          operationHours:
-          - closeTime:
-              hour: 7
-              minutes: 0
-            openTime:
-              hour: 7
-              minutes: 0
-          - closeTime:
-              hour: 7
-              minutes: 0
-            openTime:
-              hour: 7
-              minutes: 0
-          isToday: false
-          closed: false
-        bestKnownFor:
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas\
-            \ eu eros ac massa interdum mattis. Integer feugiat tortor sit amet ligula\
-            \ sodales, vel mollis sem laoreet. Pellentesque quis nibh vitae risus\
-            \ gravida cursus. Maecenas congue dictum consectetur. Fusce in nibh ut\
-            \ mi consectetur pretium. "
-          tags:
-          - imageUrl: "http://tny.im/jA-"
-            label: "Historical Building"
-          - imageUrl: "http://tny.im/jA-"
-            label: "Historical Building"
-        locationInfo:
-          address: "Jalan S Parman Kav 77, Slipi, Jakarta Barat."
-          geoLocation:
-            lon: 68.4500000000000028421709430404007434844970703125
-            lat: 23.449999999999999289457264239899814128875732421875
-          label: "PIK Avenue, 2nd Floor"
-        restaurantNearbies:
-        - restaurantType: "Western"
-          imageUrl: "http://tny.im/jA-"
-          name: "Bereau Cafe"
-          locationLabel: "Central Park, Slipi"
-          id: "123"
-        - restaurantType: "Western"
-          imageUrl: "http://tny.im/jA-"
-          name: "Bereau Cafe"
-          locationLabel: "Central Park, Slipi"
-          id: "123"
-        mainCuisine: "Korean"
-        POIstatus:
-          statusLabel: "Opening again at 11 dec 2019"
-          status: "PERMANENTLY_CLOSED"
-        mainDish: "Fried Chicken"
-        mainRestaurantType: "Casual Dining"
-        photo:
-          tab: "ALL"
-          photos:
-          - imageUrl: "http://tny.im/jA-"
-            category: "AMBIENCE"
-            mainSubcategory: "Indoor seating"
-            subcategories:
-            - "subcategories"
-            - "subcategories"
-          - imageUrl: "http://tny.im/jA-"
-            category: "AMBIENCE"
-            mainSubcategory: "Indoor seating"
-            subcategories:
-            - "subcategories"
-            - "subcategories"
-        phoneNumbers:
-        - "phoneNumbers"
-        - "phoneNumbers"
-        restaurantTypes:
-        - "restaurantTypes"
-        - "restaurantTypes"
-        poiPhotosList:
-        - "imageUrlList"
-        - "imageUrlList"
-        featureFacilities:
-        - iconImageUrl: "http://tny.im/jA-"
-          available: true
-          label: "Air Conditioned"
-        - iconImageUrl: "http://tny.im/jA-"
-          available: true
-          label: "Air Conditioned"
-        price:
-          priceDetail: "price for 1 dish + 1 beverages"
-          priceLabel: "Around Rp 100.000 per person"
-        paymentMethods:
-        - iconImageUrl: "http://tny.im/jA-"
-          available: true
-          label: "Air Conditioned"
-        - iconImageUrl: "http://tny.im/jA-"
-          available: true
-          label: "Air Conditioned"
-        name: "Chir Chir fusion Chicken"
-        id: "123"
-        openHourToday:
-          weekDay: "SUNDAY"
-          operationHours:
-          - closeTime:
-              hour: 7
-              minutes: 0
-            openTime:
-              hour: 7
-              minutes: 0
-          - closeTime:
-              hour: 7
-              minutes: 0
-            openTime:
-              hour: 7
-              minutes: 0
-          isToday: false
-          closed: false
-        highlightedFeatureFacilities:
-        - iconImageUrl: "http://tny.im/jA-"
-          available: true
-          label: "Air Conditioned"
-        - iconImageUrl: "http://tny.im/jA-"
-          available: true
-          label: "Air Conditioned"
-        menu:
-          tab: "Menu"
-          photos:
-          - imageUrl: "http://tny.im/jA-"
-            category: "AMBIENCE"
-            mainSubcategory: "Indoor seating"
-            subcategories:
-            - "subcategories"
-            - "subcategories"
-          - imageUrl: "http://tny.im/jA-"
-            category: "AMBIENCE"
-            mainSubcategory: "Indoor seating"
-            subcategories:
-            - "subcategories"
-            - "subcategories"
-        cuisineDishTypes:
-        - "cuisineDishTypes"
-        - "cuisineDishTypes"
-      context:
-        session: "session"
   POIRequest:
     type: "object"
     required:
