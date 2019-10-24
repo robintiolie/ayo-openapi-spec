@@ -2001,37 +2001,55 @@ definitions:
             name: "Gandaria City"
             locationType: "GEO"
             id: 23
+          filter: null
       - title: "RM Makan Padang"
         subtitle: "53 OUTLETS JAKARTA BARAT"
         iconUrl: "https://www.gadjian.com/blog/wp-content/uploads/2018/01/Intip-Kesuksesan-Restoran-Padang-dengan-Sistem-Perjanjian-Kerja-Bagi-Hasil.jpg"
         omniSearchType: "RESTAURANT_CHAIN"
         chainId: "2431"
+        searchSpec: null
+        restaurantId: null
       - title: "Padang"
         subtitle: "Cuisine"
         omniSearchType: "CUISINE"
         searchSpec:
+          geoDisplay: null
           filter:
-            cuisine:
+            cuisines:
             - "CHINESE"
             - "WESTERN"
+        chainId: null
+        restaurantId: null
       - title: "Padang"
         subtitle: "sa-Dish"
         omniSearchType: "DISH"
         searchSpec:
+          geoDisplay: null
           filter:
-            dish:
+            dishes:
             - "PIZZA"
             - "BURGER"
+        chainId: null
+        restaurantId: null
       - title: "Kopi Kenangan"
         subtitle: "Restaurant - Minuman"
         iconUrl: "https://awsimages.detik.net.id/community/media/visual/2019/06/25/4b2e9e97-a47e-49d3-8e20-26074032b26f_11.jpeg?w=700&q=80"
         omniSearchType: "RESTAURANT"
         restaurantId: "223"
+        chainId: null
+        searchSpec:
+          geoDisplay: null
+          filter:
+            dishes:
+            - "PIZZA"
+            - "BURGER"
       - title: "KFC Tanjung Duren"
         subtitle: "Restaurant - Tanjung Duren"
         iconUrl: "https://pbs.twimg.com/profile_images/3750210155/facf7e0f57bc8e7712f36b9a4e7d8bba_400x400.jpeg"
         omniSearchType: "RESTAURANT"
         restaurantId: "726"
+        chainId: null
+        searchSpec: null
   GalleryRequest:
     type: "object"
     properties: 
