@@ -92,6 +92,56 @@ paths:
         400:
           description: "Invalide  query"
       x-swagger-router-controller: "Location"
+  /chain:
+    post:
+      tags:
+      - "Chain"
+      summary: "get chain info detail"
+      description: "API to get Chain Detail"
+      operationId: "chain_detail"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/ChainDetailRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ChainDetailResponse"
+        400:
+          description: "Invalide  query"
+  /chain/branches:
+    post:
+      tags:
+      - "Chain"
+      summary: "get chain branch list"
+      description: "API to get Branch List"
+      operationId: "branch_list"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/ChainBranchesRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ChainBranchesResponse"
+        400:
+          description: "Invalide  query"
   /omnisearch:
     post:
       tags:
@@ -142,7 +192,7 @@ paths:
           schema:
             $ref: "#/definitions/AvailableFilterResponse"
         400:
-          description: "Invalide  query"
+          description: "Invalide  query"     
   /search/list:
     post:
       tags:
@@ -1418,6 +1468,162 @@ definitions:
       currency: "IDR"
       amount: 100000
       numOfDecimalPoint: 0
+  ChainDetailRequest:
+    type: "object"
+    properties: 
+      data: 
+        $ref: "#/definitions/ChainDetailRequestData"
+      context:
+        $ref: "#/definitions/ContextRequest"
+  ChainDetailRequestData:
+    type: "object"
+    required:
+      - "chainId"
+    properties:
+      chainId:
+        type: "string"
+        example: "98231"
+      geoDisplay:
+        $ref: "#/definitions/GeoDisplay"
+      geoLocation:
+        $ref: "#/definitions/GeoLocation"
+    example: 
+      chainId: "12345"
+      geoLocation:
+        lon: 68.4500000000000028421709430404007434844970703125
+        lat: 23.449999999999999289457264239899814128875732421875
+      geoDisplay:
+        name: "Jakarta"
+        locationType: "GEO"
+        id: 0
+  ChainDetailResponse:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        type: "object"
+        properties:
+          chainRestaurantName:
+            type: "string"
+            example: "KFC"
+          geoDisplay: 
+            $ref: "#/definitions/GeoDisplay"
+          totalOutletOnLocation:
+            type: "integer"
+            format: "int64"
+          chainType:
+            type: "string"
+          chainCuisine:
+            type: "string"
+          priceInfo:
+            type: "string"
+            example: "Around Rp 200.000/person"
+          chainHeroPicture:
+            type: "string"
+            example: "http://tny.im/jA-"
+          chainRestaurantIcon:
+            type: "string"
+            example: "http://tny.im/jA-"
+      context:
+        $ref: "#/definitions/ContextResponse"                
+  ChainBranchesRequest:
+    type: "object"
+    properties: 
+      data: 
+        $ref: "#/definitions/ChainBranchesRequestData"
+      context:
+        $ref: "#/definitions/ContextRequest"  
+  ChainBranchesRequestData:
+    type: "object"
+    required:
+      - "chainId"
+      - "skip"
+      - "limit"
+    properties:
+      chainId:
+        type: "string"
+        example: "98231"
+      geoDisplay:
+        $ref: "#/definitions/GeoDisplay"
+      geoLocation:
+        $ref: "#/definitions/GeoLocation"
+      skip:
+        type: "integer"
+        format: "int64"
+        example: 20
+      limit:
+        type: "integer"
+        format: "int64"
+        example: 20
+    example: 
+      chainId: "12345"
+      geoLocation:
+        lon: 68.4500000000000028421709430404007434844970703125
+        lat: 23.449999999999999289457264239899814128875732421875
+      geoDisplay:
+        name: "Jakarta"
+        locationType: "GEO"
+        id: 0
+      limit: 20
+      skip: 0
+  ChainBranchesResponse:
+    type: "object"
+    required: 
+    - "context"
+    - "data"
+    properties:
+      data:
+        type: "array"
+        items: 
+          $ref: "#/definitions/BranchItem"
+      context:
+        $ref: "#/definitions/ContextResponse"    
+  BranchItem:
+    type: "object"
+    required:
+    - "id"
+    - "chainName"
+    - "branchName"
+    - "address"
+    - "statusLabel"
+    properties:
+      id:
+        type: "string"
+        example: "12345"
+      chainName:
+        type: "string"
+        example: "KFC"
+      branchName:
+        type: "string"
+        example: "Slipi Kemanggisan"
+      distance:
+        type: "number"
+        example: 0.7
+      address:
+        type: "string"
+        example: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"
+      branchStatus:
+        type: "string"
+        example: "PERMANENTLY_CLOSED"
+        enum:
+          - "OPEN"
+          - "CLOSED"
+          - "TEMPORARY_CLOSED"
+          - "COMING_SOON"
+          - "PERMANENTLY_CLOSED"
+      statusLabel:
+        type: "string"
+        example: "09.00 - 21.00 (Tuesday)"
+    example:
+      id: "123"
+      chainName: "KFC"
+      branchName: "Slipi Kemanggisan"
+      distance: 0.7
+      address: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"    
+      branchStatus: "OPEN"
+      statusLabel: "09.00 - 21.00 (Tuesday)"
   SearchResultRequest:
     type: "object"
     required:
