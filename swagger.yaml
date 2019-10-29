@@ -92,6 +92,31 @@ paths:
         400:
           description: "Invalide  query"
       x-swagger-router-controller: "Location"
+  /glossary:
+    post:
+      tags:
+      - "glossary"
+      summary: "get glossary page"
+      description: "Get Glossary Page data"
+      operationId: "glossary"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/GlossaryRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/GlossaryResponse"
+        400:
+          description: "Invalide  query"
   /chain:
     post:
       tags:
@@ -113,7 +138,7 @@ paths:
       responses:
         200:
           description: "successful operation"
-          schema:
+          schema:    
             $ref: "#/definitions/ChainDetailResponse"
         400:
           description: "Invalide  query"
@@ -1575,9 +1600,12 @@ definitions:
     - "data"
     properties:
       data:
-        type: "array"
-        items: 
-          $ref: "#/definitions/BranchItem"
+        type: "object"
+        properties: 
+          branches:
+            type: "array"
+            items:
+              $ref: "#/definitions/BranchItem"
       context:
         $ref: "#/definitions/ContextResponse"    
   BranchItem:
@@ -2161,3 +2189,53 @@ definitions:
         subcategories:
         - "Toppoki"
         - "Cheese"
+  GlossaryRequest:
+    type: "object"
+    properties: 
+      data: 
+        $ref: "#/definitions/GlossaryRequestData"
+      context:
+        $ref: "#/definitions/ContextRequest"  
+  GlossaryRequestData:
+    type: "object"
+    properties:
+      geoDisplay:
+        $ref: "#/definitions/GeoDisplay"
+      geoLocation:
+        $ref: "#/definitions/GeoLocation"
+  GlossaryResponse:
+    type: "object"
+    required: 
+    - "context"
+    - "data"
+    properties:
+      data:
+        type: "array"
+        items: 
+          $ref: "#/definitions/GlossarySectionItem"
+      context:
+        $ref: "#/definitions/ContextResponse" 
+  GlossarySectionItem:
+    type: "object"
+    required:
+    - "name"
+    - "items"
+    properties:
+      name:
+        type: "string"
+        example: "Italian"
+      items:
+        type: array
+        items:
+          $ref: "#/definitions/GlossaryItem"
+  GlossaryItem:
+    type: "object"
+    required:
+    - "imageUrl"
+    - "filter"
+    properties:
+      imageUrl:
+        type: "string"
+        example: "http://tny.im/jA-"
+      filter:
+        $ref: "#/definitions/SearchResultFilterBase"
