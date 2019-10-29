@@ -691,9 +691,9 @@ definitions:
           - ratingDisplay:
               rating: 4.5999999999999996447286321199499070644378662109375
               ratingColor:
-                r: 153
-                b: 152
-                g: 37
+                r: 183
+                b: 253
+                g: 123
             imageUrl: "https://arsitagx-master.s3.ap-southeast-1.amazonaws.com/img-large/19781/11487/makai-design-company-kopi-kenangan1560482361-l.jpeg"
             name: "Kopi Kenangan"
             locationLabel: "Gandaria City, Jakarta"
@@ -702,20 +702,20 @@ definitions:
           - ratingDisplay:
               rating: 4.5999999999999996447286321199499070644378662109375
               ratingColor:
-                r: 153
-                b: 152
-                g: 37
+                r: 183
+                b: 253
+                g: 123
             imageUrl: "https://b.zmtcdn.com/data/pictures/chains/5/7400565/2e8c340cd9abb738853a20bb4dce2e81_featured_v2.jpg"
             name: "Kyochon"
             locationLabel: "Gandaria City, Jakarta"
             id: "123"
             cuisineType: "Western"
           - ratingDisplay:
-            rating: 4.5999999999999996447286321199499070644378662109375
-            ratingColor:
-              r: 153
-              b: 152
-              g: 37
+              rating: 4.5999999999999996447286321199499070644378662109375
+              ratingColor:
+                r: 183
+                b: 253
+                g: 123
             imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJyCSH3MbxMGB4t9jekWULlfG_oj4D9NBFUcII1wY-rj6bMX7p&s"
             name: "Coco Ichibanya"
             locationLabel: "Pondok Indah Mall, Jakarta"
@@ -724,9 +724,9 @@ definitions:
           - ratingDisplay:
               rating: 4.5999999999999996447286321199499070644378662109375
               ratingColor:
-                r: 153
-                b: 152
-                g: 37
+                r: 183
+                b: 253
+                g: 123
             imageUrl: "https://tempat.com/blog/wp-content/uploads/2019/07/Three_Buns_Jakarta_06_jpg_1539873276.jpg"
             name: "Byurger"
             locationLabel: "Cipete Selatan, Jakarta"
@@ -2326,11 +2326,13 @@ definitions:
     - "data"
     properties:
       data:
-        type: "array"
-        items: 
-          $ref: "#/definitions/GlossarySectionItem"
+        properties:
+          sections:
+            type: "array"
+            items:
+              $ref: "#/definitions/GlossarySectionItem"
       context:
-        $ref: "#/definitions/ContextResponse" 
+        $ref: "#/definitions/ContextResponse"
   GlossarySectionItem:
     type: "object"
     required:
