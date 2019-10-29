@@ -91,7 +91,31 @@ paths:
             $ref: "#/definitions/LocationResponse"
         400:
           description: "Invalide  query"
-      x-swagger-router-controller: "Location"
+  /othercities:
+    post:
+      tags:
+      - "location"
+      summary: "get the location"
+      description: ""
+      operationId: "othercities"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/OtherCitiesRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/OtherCitiesResponse"
+        400:
+          description: "Invalide  query"
   /glossary:
     post:
       tags:
@@ -138,7 +162,7 @@ paths:
       responses:
         200:
           description: "successful operation"
-          schema:    
+          schema:
             $ref: "#/definitions/ChainDetailResponse"
         400:
           description: "Invalide  query"
@@ -654,12 +678,12 @@ definitions:
           locationType: "GEO"
           id: 0
         banners:
-        - imageUrl: "http://tny.im/jA-"
+        - imageUrl: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
           deeplink: "http://heyayo.id"
-        - imageUrl: "http://tny.im/jA-"
+        - imageUrl: "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
           deeplink: "http://heyayo.id"
         nearbyRestaurantDisplay:
-          imageUrl: "http://tny.im/jA-"
+          imageUrl: "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX27968130.jpg"
           label: "See restaurant around me"
         sections:
         - groupType: "RESTAURANT"
@@ -670,9 +694,9 @@ definitions:
                 r: 153
                 b: 152
                 g: 37
-            imageUrl: "http://tny.im/jA-"
-            name: "Bureau Cafe"
-            locationLabel: "Central Park, Slipi"
+            imageUrl: "https://arsitagx-master.s3.ap-southeast-1.amazonaws.com/img-large/19781/11487/makai-design-company-kopi-kenangan1560482361-l.jpeg"
+            name: "Kopi Kenangan"
+            locationLabel: "Gandaria City, Jakarta"
             id: "123"
             cuisineType: "Western"
           - ratingDisplay:
@@ -681,47 +705,45 @@ definitions:
                 r: 153
                 b: 152
                 g: 37
-            imageUrl: "http://tny.im/jA-"
-            name: "Bureau Cafe"
-            locationLabel: "Central Park, Slipi"
+            imageUrl: "https://b.zmtcdn.com/data/pictures/chains/5/7400565/2e8c340cd9abb738853a20bb4dce2e81_featured_v2.jpg"
+            name: "Kyochon"
+            locationLabel: "Gandaria City, Jakarta"
             id: "123"
             cuisineType: "Western"
-          dishes:
-          - imageUrl: "http://tny.im/jA-"
-            id: "PIZZA"
-          - imageUrl: "http://tny.im/jA-"
-            id: "PIZZA"
+          - ratingDisplay:
+            rating: 4.5999999999999996447286321199499070644378662109375
+            ratingColor:
+              r: 153
+              b: 152
+              g: 37
+            imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJyCSH3MbxMGB4t9jekWULlfG_oj4D9NBFUcII1wY-rj6bMX7p&s"
+            name: "Coco Ichibanya"
+            locationLabel: "Pondok Indah Mall, Jakarta"
+            id: "123"
+            cuisineType: "Western"
+          - ratingDisplay:
+              rating: 4.5999999999999996447286321199499070644378662109375
+              ratingColor:
+                r: 153
+                b: 152
+                g: 37
+            imageUrl: "https://tempat.com/blog/wp-content/uploads/2019/07/Three_Buns_Jakarta_06_jpg_1539873276.jpg"
+            name: "Byurger"
+            locationLabel: "Cipete Selatan, Jakarta"
+            id: "123"
+            cuisineType: "Western"
           title: "Restoran di Jakarta"
         - groupType: "DISH"
-          restaurants:
-          - ratingDisplay:
-              rating: 4.5999999999999996447286321199499070644378662109375
-              ratingColor:
-                r: 153
-                b: 152
-                g: 37
-            imageUrl: "http://tny.im/jA-"
-            name: "Bureau Cafe"
-            locationLabel: "Central Park, Slipi"
-            id: "123"
-            cuisineType: "Western"
-          - ratingDisplay:
-              rating: 4.5999999999999996447286321199499070644378662109375
-              ratingColor:
-                r: 153
-                b: 152
-                g: 37
-            imageUrl: "http://tny.im/jA-"
-            name: "Bureau Cafe"
-            locationLabel: "Central Park, Slipi"
-            id: "123"
-            cuisineType: "Western"
           dishes:
-          - imageUrl: "http://tny.im/jA-"
+          - imageUrl: "https://www.chewboom.com/wp-content/uploads/2019/06/Pizza-Hut-Offers-5.99-Large-2-Topping-Carryout-Pizzas-Ordered-Online-Through-June-23-2019-678x381.jpg"
             id: "PIZZA"
-          - imageUrl: "http://tny.im/jA-"
-            id: "PIZZA"
-          title: "Restoran di Jakarta"
+          - imageUrl: "https://cdn.idntimes.com/content-images/community/2017/10/xxxlfatburgerskinnyfriesandamauimilkshake-bee97cc9fc3d415e049a5911a3f3a6fb_600x400.jpg"
+            id: "BURGER"
+          - imageUrl: "https://1.bp.blogspot.com/-oizQsluoimw/WI1iM8JpZDI/AAAAAAAAPnA/BvKMGM-nZ5EG8zPy_BD4vbMk9a_nze5_QCEw/s1600/Salad%2BStop-3.jpg"
+            id: "SALAD"
+          - imageUrl: "https://d26bwjyd9l0e3m.cloudfront.net/wp-content/uploads/2018/10/Kopi-Kenangan-Alpha-JWC-Ventures.jpg"
+            id: "BEVEARAGE"
+          title: "Makanan Populer Anak Jaksel"
       context:
         session: "session"
   HourMinute:
@@ -1441,34 +1463,41 @@ definitions:
     example:
       data:
         locations:
-          - geoDisplay:
-              name: "Jakarta, Indonesia"
-              locationType: "GEO"
-              id: 1
-          - geoDisplay:
-              name: "Atma Jaya, Jakarta"
-              locationType: "GEO"
-              id: 2
-          - geoDisplay:
-              name: "Wisma 77 Tower 2, Jakarta"
-              locationType: "GEO"
-              id: 3
-          - geoDisplay:
-              name: "Taman Wisata Jaya Ancol"
-              locationType: "GEO"
-              id: 4
-          - geoDisplay:
-              name: "Ragunan"
-              locationType: "GEO"
-              id: 5
-          - geoDisplay:
-              name: "Gedung Citicon, Slipi"
-              locationType: "GEO"
-              id: 6
-          - geoDisplay:
-              name: "Menara Peninsula"
-              locationType: "GEO"
-              id: 7
+        - geoDisplay:
+            name: "Jakarta"
+            locationType: "GEO"
+            id: 1
+          label: "Jakarta, Indonesia"
+        - geoDisplay:
+            name: "Atma Jaya, Jakarta"
+            locationType: "GEO"
+            id: 2
+          label: "Atma Jaya, Jakarta"
+        - geoDisplay:
+            name: "Wisma 77 Tower 2"
+            locationType: "GEO"
+            id: 3
+          label: "Wisma 77 Tower 2, Jakarta"
+        - geoDisplay:
+            name: "Taman Wisata Jaya Ancol"
+            locationType: "GEO"
+            id: 4
+          label: "Taman Wisata Jaya Ancol, Jakarta"
+        - geoDisplay:
+            name: "Ragunan"
+            locationType: "GEO"
+            id: 5
+          label: "Ragunan, Jakarta"
+        - geoDisplay:
+            name: "Gedung Citicon"
+            locationType: "GEO"
+            id: 6
+          label: "Gedung Citicon, Slipi"
+        - geoDisplay:
+            name: "Menara Peninsula"
+            locationType: "GEO"
+            id: 7
+          label: "Menara Peninsula, Jakarta"
       context:
         session: "session"
         clientInterface: "clientInterface"
@@ -1533,7 +1562,7 @@ definitions:
           chainRestaurantName:
             type: "string"
             example: "KFC"
-          geoDisplay: 
+          geoDisplay:
             $ref: "#/definitions/GeoDisplay"
           totalOutletOnLocation:
             type: "integer"
@@ -1547,19 +1576,19 @@ definitions:
             example: "Around Rp 200.000/person"
           chainHeroPicture:
             type: "string"
-            example: "http://tny.im/jA-"
+            example: "https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto/gigs/117960970/original/d0d089336c4bc43565d45209b03b9dce1669b1e3/draw-your-face-like-kfc-logo-style-d197.jpg"
           chainRestaurantIcon:
             type: "string"
-            example: "http://tny.im/jA-"
+            example: "https://upload.wikimedia.org/wikipedia/id/thumb/b/bf/KFC_logo.svg/600px-KFC_logo.svg.png"
       context:
-        $ref: "#/definitions/ContextResponse"                
+        $ref: "#/definitions/ContextResponse"
   ChainBranchesRequest:
     type: "object"
-    properties: 
-      data: 
+    properties:
+      data:
         $ref: "#/definitions/ChainBranchesRequestData"
       context:
-        $ref: "#/definitions/ContextRequest"  
+        $ref: "#/definitions/ContextRequest"
   ChainBranchesRequestData:
     type: "object"
     required:
@@ -1582,7 +1611,7 @@ definitions:
         type: "integer"
         format: "int64"
         example: 20
-    example: 
+    example:
       chainId: "12345"
       geoLocation:
         lon: 68.4500000000000028421709430404007434844970703125
@@ -1595,19 +1624,106 @@ definitions:
       skip: 0
   ChainBranchesResponse:
     type: "object"
-    required: 
+    required:
     - "context"
     - "data"
     properties:
       data:
         type: "object"
-        properties: 
+        properties:
           branches:
             type: "array"
             items:
               $ref: "#/definitions/BranchItem"
       context:
-        $ref: "#/definitions/ContextResponse"    
+        $ref: "#/definitions/ContextResponse"
+    example:
+      data:
+        branches:
+        - id: "123"
+          chainName: "KFC"
+          branchName: "Slipi Kemanggisan"
+          distance: 0.7
+          address: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"
+          branchStatus: "OPEN"
+          statusLabel: "09.00 - 21.00 (Tuesday)"
+        - id: "123"
+          chainName: "KFC"
+          branchName: "Palmerah, Jakarta"
+          distance: 0.3
+          address: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"
+          branchStatus: "OPEN"
+          statusLabel: "09.00 - 21.00 (Tuesday)"
+        - id: "123"
+          chainName: "KFC"
+          branchName: "Kuningan, Jakarta"
+          distance: 0.7
+          address: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"
+          branchStatus: "OPEN"
+          statusLabel: "09.00 - 21.00 (Tuesday)"
+        - id: "123"
+          chainName: "KFC"
+          branchName: "Monas, Jakarta"
+          distance: 0.7
+          address: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"
+          branchStatus: "OPEN"
+          statusLabel: "09.00 - 21.00 (Tuesday)"
+        - id: "123"
+          chainName: "KFC"
+          branchName: "Cental Park, Jakarta"
+          distance: 0.7
+          address: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"
+          branchStatus: "OPEN"
+          statusLabel: "09.00 - 21.00 (Tuesday)"
+        - id: "123"
+          chainName: "KFC"
+          branchName: "Gandaria City, Jakarta"
+          distance: 0.7
+          address: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"
+          branchStatus: "OPEN"
+          statusLabel: "09.00 - 21.00 (Tuesday)"
+        - id: "123"
+          chainName: "KFC"
+          branchName: "Pondok Indah, Jakarta"
+          distance: 0.7
+          address: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"
+          branchStatus: "OPEN"
+          statusLabel: "09.00 - 21.00 (Tuesday)"
+        - id: "123"
+          chainName: "KFC"
+          branchName: "Slipi Kemanggisan"
+          distance: 0.7
+          address: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"
+          branchStatus: "OPEN"
+          statusLabel: "09.00 - 21.00 (Tuesday)"
+        - id: "123"
+          chainName: "KFC"
+          branchName: "Slipi Kemanggisan"
+          distance: 0.7
+          address: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"
+          branchStatus: "OPEN"
+          statusLabel: "09.00 - 21.00 (Tuesday)"
+        - id: "123"
+          chainName: "KFC"
+          branchName: "Slipi Kemanggisan"
+          distance: 0.7
+          address: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"
+          branchStatus: "OPEN"
+          statusLabel: "09.00 - 21.00 (Tuesday)"
+        - id: "123"
+          chainName: "KFC"
+          branchName: "Slipi Kemanggisan"
+          distance: 0.7
+          address: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"
+          branchStatus: "OPEN"
+          statusLabel: "09.00 - 21.00 (Tuesday)"
+        - id: "123"
+          chainName: "KFC"
+          branchName: "Slipi Kemanggisan"
+          distance: 0.7
+          address: "SPBU Shell, Jl. Raya S. Parman Kav 38-39, Slipi, Jakarta"
+          branchStatus: "OPEN"
+          statusLabel: "09.00 - 21.00 (Tuesday)"
   BranchItem:
     type: "object"
     required:
@@ -1673,7 +1789,7 @@ definitions:
       geoLocation:
         $ref: "#/definitions/GeoLocation"
       filter:
-        $ref: "#/definitions/SearchResultFilterBase"
+        $ref: "#/definitions/FilterBase"
       sort:
         type: "string"
         example: "Popularity"
@@ -1683,7 +1799,7 @@ definitions:
       skip:
         type: "integer"
         format: "int64"
-  SearchResultFilterBase:
+  FilterBase:
     type: "object"
     required:
     - "quickFilters"
@@ -2007,7 +2123,7 @@ definitions:
           geoDisplay:
             $ref: "#/definitions/GeoDisplay"
           filter:
-            $ref: "#/definitions/SearchResultFilterBase"
+            $ref: "#/definitions/FilterBase"
       chainId:
         type: "string"
         example: "223"
@@ -2238,4 +2354,52 @@ definitions:
         type: "string"
         example: "http://tny.im/jA-"
       filter:
-        $ref: "#/definitions/SearchResultFilterBase"
+        $ref: "#/definitions/FilterBase"
+  OtherCitiesRequest:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        $ref: "#/definitions/OtherCitiesRequestData"
+      context:
+        $ref: "#/definitions/ContextRequest"
+  OtherCitiesRequestData:
+    type: "object"
+  OtherCitiesResponse:
+    type: "object"
+    required:
+    - "context"
+    - "data"
+    properties:
+      data:
+        $ref: "#/definitions/LocationResponseData"
+      context:
+        $ref: "#/definitions/ContextRequest"
+    example:
+      data:
+        locations:
+        - geoDisplay:
+            name: "Bogor"
+            locationType: "GEO"
+            id: 1
+          label: "Bogor"
+        - geoDisplay:
+            name: "Depok"
+            locationType: "GEO"
+            id: 2
+          label: "Depok"
+        - geoDisplay:
+            name: "Tangerang"
+            locationType: "GEO"
+            id: 3
+          label: "Tangerang"
+        - geoDisplay:
+            name: "Bekasi"
+            locationType: "GEO"
+            id: 4
+          label: "Bekasi"
+      context:
+        session: "session"
+        clientInterface: "clientInterface"
