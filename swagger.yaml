@@ -440,69 +440,72 @@ definitions:
     example:
       imageUrl: "http://tny.im/jA-"
       id: "PIZZA"
-  Section:
+  RestaurantShowcase:
     type: "object"
     required:
-    - "dishes"
-    - "groupType"
-    - "restaurants"
-    - "title"
+      - "elements"
+      - "title"
     properties:
       title:
         type: "string"
         example: "Restoran di Jakarta"
-      groupType:
-        type: "string"
-        example: "RESTAURANT"
-        enum:
-        - "RESTAURANT"
-        - "DISH"
-        - "CUISINE"
-      restaurants:
+      elements:
         type: "array"
         items:
           $ref: "#/definitions/RestaurantTile"
-      dishes:
+    example:
+      elements:
+        - ratingDisplay:
+            rating: 4.5999999999999996447286321199499070644378662109375
+            ratingColor:
+              r: 153
+              b: 152
+              g: 37
+          imageUrl: "http://tny.im/jA-"
+          name: "Bureau Cafe"
+          locationLabel: "Central Park, Slipi"
+          id: "123"
+          cuisineType: "Western"
+        - ratingDisplay:
+            rating: 4.5999999999999996447286321199499070644378662109375
+            ratingColor:
+              r: 153
+              b: 152
+              g: 37
+          imageUrl: "http://tny.im/jA-"
+          name: "Bureau Cafe"
+          locationLabel: "Central Park, Slipi"
+          id: "123"
+          cuisineType: "Western"
+      title: "Restoran di Jakarta"
+  DishShowcase:
+    type: "object"
+    required:
+      - "elements"
+      - "title"
+    properties:
+      title:
+        type: "string"
+        example: "Popular dishes in town"
+      elements:
         type: "array"
         items:
           $ref: "#/definitions/DishTile"
     example:
-      groupType: "RESTAURANT"
-      restaurants:
-      - ratingDisplay:
-          rating: 4.5999999999999996447286321199499070644378662109375
-          ratingColor:
-            r: 153
-            b: 152
-            g: 37
-        imageUrl: "http://tny.im/jA-"
-        name: "Bureau Cafe"
-        locationLabel: "Central Park, Slipi"
-        id: "123"
-        cuisineType: "Western"
-      - ratingDisplay:
-          rating: 4.5999999999999996447286321199499070644378662109375
-          ratingColor:
-            r: 153
-            b: 152
-            g: 37
-        imageUrl: "http://tny.im/jA-"
-        name: "Bureau Cafe"
-        locationLabel: "Central Park, Slipi"
-        id: "123"
-        cuisineType: "Western"
-      dishes:
-      - imageUrl: "http://tny.im/jA-"
-        id: "PIZZA"
-      - imageUrl: "http://tny.im/jA-"
-        id: "PIZZA"
-      title: "Restoran di Jakarta"
+      elements:
+        - imageUrl: "http://tny.im/jA-"
+          id: "PIZZA"
+        - imageUrl: "http://tny.im/jA-"
+          id: "PIZZA"
+      title: "Popular dishes in town"
+
   HomepageDataResponse:
     type: "object"
     required:
-    - "banners"
-    - "geoDisplay"
-    - "sections"
+      - "banners"
+      - "geoDisplay"
+      - "restaurantShowcase"
+      - "dishShowcase"
     properties:
       geoDisplay:
         $ref: "#/definitions/GeoDisplay"
@@ -512,26 +515,29 @@ definitions:
           $ref: "#/definitions/Banner"
       nearbyRestaurantDisplay:
         $ref: "#/definitions/NearbyRestaurantDisplay"
-      sections:
+      restaurantShowcase:
         type: "array"
         items:
-          $ref: "#/definitions/Section"
+          $ref: "#/definitions/RestaurantShowcase"
+      dishShowcase:
+        type: "array"
+        items:
+          $ref: "#/definitions/DishShowcase"
     example:
       geoDisplay:
         name: "Jakarta"
         locationType: "GEO"
         id: 0
       banners:
-      - imageUrl: "http://tny.im/jA-"
-        deeplink: "http://heyayo.id"
-      - imageUrl: "http://tny.im/jA-"
-        deeplink: "http://heyayo.id"
+        - imageUrl: "http://tny.im/jA-"
+          deeplink: "http://heyayo.id"
+        - imageUrl: "http://tny.im/jA-"
+          deeplink: "http://heyayo.id"
       nearbyRestaurantDisplay:
         imageUrl: "http://tny.im/jA-"
         label: "See restaurant around me"
-      sections:
-      - groupType: "RESTAURANT"
-        restaurants:
+      restaurantShowcase:
+        elements:
         - ratingDisplay:
             rating: 4.5999999999999996447286321199499070644378662109375
             ratingColor:
@@ -554,42 +560,40 @@ definitions:
           locationLabel: "Central Park, Slipi"
           id: "123"
           cuisineType: "Western"
-        dishes:
-        - imageUrl: "http://tny.im/jA-"
-          id: "PIZZA"
-        - imageUrl: "http://tny.im/jA-"
-          id: "PIZZA"
+        - ratingDisplay:
+            rating: 4.5999999999999996447286321199499070644378662109375
+            ratingColor:
+              r: 153
+              b: 152
+              g: 37
+          imageUrl: "http://tny.im/jA-"
+          name: "Bureau Cafe"
+          locationLabel: "Central Park, Slipi"
+          id: "123"
+          cuisineType: "Western"
+        - ratingDisplay:
+            rating: 4.5999999999999996447286321199499070644378662109375
+            ratingColor:
+              r: 153
+              b: 152
+              g: 37
+          imageUrl: "http://tny.im/jA-"
+          name: "Bureau Cafe"
+          locationLabel: "Central Park, Slipi"
+          id: "123"
+          cuisineType: "Western"
         title: "Restoran di Jakarta"
-      - groupType: "RESTAURANT"
-        restaurants:
-        - ratingDisplay:
-            rating: 4.5999999999999996447286321199499070644378662109375
-            ratingColor:
-              r: 153
-              b: 152
-              g: 37
-          imageUrl: "http://tny.im/jA-"
-          name: "Bureau Cafe"
-          locationLabel: "Central Park, Slipi"
-          id: "123"
-          cuisineType: "Western"
-        - ratingDisplay:
-            rating: 4.5999999999999996447286321199499070644378662109375
-            ratingColor:
-              r: 153
-              b: 152
-              g: 37
-          imageUrl: "http://tny.im/jA-"
-          name: "Bureau Cafe"
-          locationLabel: "Central Park, Slipi"
-          id: "123"
-          cuisineType: "Western"
-        dishes:
-        - imageUrl: "http://tny.im/jA-"
-          id: "PIZZA"
-        - imageUrl: "http://tny.im/jA-"
-          id: "PIZZA"
-        title: "Restoran di Jakarta"
+      dishShowcase:
+        elements:
+          - imageUrl: "http://tny.im/jA-"
+            id: "PIZZA"
+          - imageUrl: "http://tny.im/jA-"
+            id: "PIZZA"
+          - imageUrl: "http://tny.im/jA-"
+            id: "PIZZA"
+          - imageUrl: "http://tny.im/jA-"
+            id: "PIZZA"
+        title: "Popular dishes in town"
   GeoLocation:
     type: "object"
     required:
@@ -685,9 +689,8 @@ definitions:
         nearbyRestaurantDisplay:
           imageUrl: "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX27968130.jpg"
           label: "See restaurant around me"
-        sections:
-        - groupType: "RESTAURANT"
-          restaurants:
+        restaurantShowcase:
+          elements:
           - ratingDisplay:
               rating: 4.5999999999999996447286321199499070644378662109375
               ratingColor:
@@ -733,8 +736,8 @@ definitions:
             id: "123"
             cuisineType: "Western"
           title: "Restoran di Jakarta"
-        - groupType: "DISH"
-          dishes:
+        dishShowcase:
+          elements:
           - imageUrl: "https://www.chewboom.com/wp-content/uploads/2019/06/Pizza-Hut-Offers-5.99-Large-2-Topping-Carryout-Pizzas-Ordered-Online-Through-June-23-2019-678x381.jpg"
             id: "PIZZA"
           - imageUrl: "https://cdn.idntimes.com/content-images/community/2017/10/xxxlfatburgerskinnyfriesandamauimilkshake-bee97cc9fc3d415e049a5911a3f3a6fb_600x400.jpg"
