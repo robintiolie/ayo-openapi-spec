@@ -2013,6 +2013,8 @@ definitions:
       openTime:
         type: "string"
         example: "09.00 - 17.00 (Thu)"
+      price:
+        $ref: "#/definitions/Price"
       distance:
         type: "number"
         example: 0.7
@@ -2041,6 +2043,9 @@ definitions:
       - "http://tny.im/jA-"
       status: "OPEN"
       openTime: "09.00 - 21.00 (Thu)"
+      price:
+        priceDetail: "price for 1 dish + 1 beverages"
+        priceLabel: "Around Rp 100.000 per person"
       distance: 0.7
       address: "Senopati, Jakarta Selatan"
       menu: 
